@@ -1,4 +1,4 @@
-import { Col, Row, Space } from 'antd';
+import { Card, Col, Row, Space } from 'antd';
 import LineChart from './components/Charts';
 import styles from './index.module.scss';
 
@@ -6,24 +6,21 @@ import styles from './index.module.scss';
 export default function AboutUs() {
   return (
     <div className={styles.container}>
-      <Row justify="space-between">
-        <Col span={7}>
-          <span>公司数量</span>
-          <div className={styles.chartDiv}>
+      <Row gutter={16}>
+        <Col span={8}>
+          <Card title="公司数量" bordered={false}>
             <LineChart />
-          </div>
+          </Card>
         </Col>
-        <Col span={7}>
-          <span>评论数量</span>
-          <div className={styles.chartDiv}>
+        <Col span={8}>
+          <Card title="评论数量" bordered={false}>
             <LineChart />
-          </div>
+          </Card>
         </Col>
-        <Col span={7}>
-          <span>访问量</span>
-          <div className={styles.chartDiv}>
+        <Col span={8}>
+          <Card title="访问量" bordered={false}>
             <LineChart />
-          </div>
+          </Card>
         </Col>
       </Row>
     </div>
