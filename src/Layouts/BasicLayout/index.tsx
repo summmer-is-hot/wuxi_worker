@@ -46,7 +46,7 @@ export default function BasicLayout({ children, location }) {
                   <span className={styles.title}>GitHub</span>
                 </Tooltip>
               ),
-              href: 'https://github.com/ice-lab/icejs',
+              href: 'https://github.com/summmer-is-hot/wuxi_worker',
               blankTarget: true,
             },
             {
@@ -57,8 +57,8 @@ export default function BasicLayout({ children, location }) {
                   <span className={styles.title}>联系作者</span>
                 </Tooltip>
               ),
-              href: 'https://github.com/ice-lab/icejs',
-              blankTarget: true,
+              href: '#',
+              // blankTarget: true,
             },
             {
               key: 'Disclaimer',
