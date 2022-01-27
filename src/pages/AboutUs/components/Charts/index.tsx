@@ -1,21 +1,23 @@
+/* eslint-disable @typescript-eslint/quotes */
 import React, { useEffect, useState } from 'react';
 import { Line } from '@ant-design/plots';
 import { useRequest } from 'ice';
 
 const LineChart: React.FC = () => {
-  const { data, error, loading, request: getCompanyNumForChart } = useRequest({ url: '/api/getCompanyNumForChart' });
+  const { data, error, loading, request: getCoNumForChart } = useRequest({ url: '/api/getCoNumForChart' });
   const { chartData = [] } = data || {};
 
   useEffect(() => {
     // (async function () {
     //   await fetchRepos();
     // }());
-    getCompanyNumForChart();
+    getCoNumForChart();
   }, []);
 
   const config = {
     data: chartData,
-    padding: 'auto',
+    // padding: 'auto',
+    height: 360,
     xField: 'Date',
     yField: 'scales',
     point: {
