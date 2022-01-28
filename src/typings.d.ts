@@ -14,4 +14,6 @@ declare module '*.module.scss' {
   export default classes;
 }
 
+declare module 'lodash/debounce'
+
 declare module '*.png';

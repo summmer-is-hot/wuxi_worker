@@ -27,18 +27,18 @@ export default () => {
               <span className={styles.title}>联系作者</span>
             </Tooltip>
           ),
-          href: '#',
+          href: '#!',
           // blankTarget: true,
         },
         {
           key: 'Disclaimer',
           title: (
-            <Tooltip title="本站所有资源均来源于网络，仅供学习参考，如有侵权，非常抱歉，请立即联系作者删除!">
+            <Tooltip title="本站所有资源均来源于网络，仅供参考，如有侵权，非常抱歉，请立即联系作者删除!">
               <InfoCircleOutlined />
               <span className={styles.title}>免责申明</span>
             </Tooltip>
           ),
-          href: '#',
+          href: '#!',
         },
       ]}
       // copyright="2022 无锡IT小眷村 | 苏ICP备19026706号-2"
