@@ -12,6 +12,7 @@ import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-de
 
 import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
+import { useHistory } from 'ice';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -31,10 +32,12 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('account');
   // const { initialState, setInitialState } = useModel('@@initialState');
   const changeType = (value: any) => {
-    if (value === 'mobile') {
-      message.info('暂未开放哦~给作者加个鸡腿吧~~')
-    }
-  }
+    // if (value === 'mobile') {
+    //   message.info('暂未开放哦~给作者加个鸡腿吧~~')
+    // }
+    setType(value);
+  };
+  const history = useHistory();
 
   // const intl = useIntl();
 
@@ -49,6 +52,7 @@ const Login: React.FC = () => {
   };
 
   const handleSubmit = async (values: any) => {
+    history.push('/');
     // try {
     //   // 登录
     //   const msg = await login({ ...values, type });
@@ -97,17 +101,18 @@ const Login: React.FC = () => {
           // ]}
           onFinish={async (values) => {
             // await handleSubmit(values as API.LoginParams);
+            await handleSubmit(values);
             console.log('handleSubmit :>> ', '--------->');
           }}
         >
           <Tabs activeKey={type} onChange={changeType}>
             <Tabs.TabPane
               key="account"
-              tab={'账户密码登录'}
+              tab={'登录'}
             />
             <Tabs.TabPane
               key="mobile"
-              tab={'手机号登录'}
+              tab={'注册'}
             />
           </Tabs>
 

@@ -1,0 +1,11 @@
+.submit {
+  margin-bottom: 0;
+
+  :global {
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+  }
+}

@@ -2,8 +2,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Input, Select, Space, Spin, Typography } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import debounce from 'lodash/debounce';
-import { deBounce } from '@/utils/utils';
 import { useMemo, useRef, useState } from 'react';
+import AddCompany from '../AddCompany';
+
 const { Text } = Typography;
 
 
@@ -73,50 +74,60 @@ async function fetchUserList(username: string): Promise<UserValue[]> {
       ));
 }
 
-const AddCompany = (props: any) => {
+const CompanySelect = (props: any) => {
   const { getCompanyId } = props;
   const [value, setValue] = useState<UserValue[]>([]);
   const [newCoName, setNewCoName] = useState('');
+  const [showAddCompany, setShowAddCompany] = useState(false);
 
   const onNameChange = (event) => {
     setNewCoName(event.target.value);
   };
 
   const addItem = () => {
-    console.log('addItem 调用新增公司接口');
+    setShowAddCompany(true);
+  };
+  const hideModal = () => {
+    setShowAddCompany(false);
   };
 
   return (
-    <DebounceSelect
-      // mode="multiple"
-      showSearch
-      value={value}
-      placeholder="请选择公司名称"
-      fetchOptions={fetchUserList}
-      onChange={(newValue) => {
-        setValue(newValue);
-        getCompanyId(newValue);
-      }}
-      style={{ width: '100%' }}
-      dropdownRender={(menu) => (
-        <div>
-          {menu}
-          <Divider style={{ margin: '4px 0' }} />
-          <Space> <Text type="warning">未搜到？在下方新增一个吧~~</Text></Space>
-          <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-            <Input style={{ flex: 'auto' }} value={newCoName} onChange={onNameChange} />
-            <a
-              style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
-              onClick={deBounce(addItem)}
-            >
-              <PlusOutlined /> 新增
-            </a>
+    <>
+      <DebounceSelect
+        // mode="multiple"
+        showSearch
+        value={value}
+        placeholder="请选择公司名称"
+        fetchOptions={fetchUserList}
+        onChange={(newValue) => {
+          setValue(newValue);
+          getCompanyId(newValue);
+        }}
+        style={{ width: '100%' }}
+        dropdownRender={(menu) => (
+          <div>
+            {menu}
+            <Divider style={{ margin: '4px 0' }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8 }}>
+              {/* <Input style={{ flex: 'auto' }} value={newCoName} onChange={onNameChange} /> */}
+              <Text type="warning">未搜索到？试试新增？</Text>
+
+              <a
+                style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
+                onClick={addItem}
+              >
+                <PlusOutlined /> 新增
+              </a>
+            </div>
           </div>
-        </div>
-      )}
-    />
+        )}
+      />
+      {
+        showAddCompany && <AddCompany addCompanyModal={showAddCompany} hideModal={hideModal} />
+      }
+    </>
   );
 };
 
 
-export default AddCompany;
+export default CompanySelect;

@@ -1,6 +1,6 @@
 /* eslint-disable no-script-url */
 import { createElement } from 'react';
-import ProLayout from '@ant-design/pro-layout';
+import ProLayout, { PageContainer, ProBreadcrumb } from '@ant-design/pro-layout';
 import { Link } from 'ice';
 import { asideMenuConfig } from './menuConfig';
 import RightContent from '../RightContent';
@@ -28,6 +28,10 @@ export default function BasicLayout({ children, location }) {
       location={{
         pathname: location.pathname,
       }}
+      // headerContentRender={() => <ProBreadcrumb />}
+      // breadcrumbRender={(routers = []) => [
+      //   ...asideMenuConfig,
+      // ]}
       menuDataRender={() => loopMenuItem(asideMenuConfig)}
       menuItemRender={(item, defaultDom) => {
         if (!item.path) {

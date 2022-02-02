@@ -18,11 +18,29 @@ const routerConfig: IRouterConfig[] = [
     path: '/',
     component: Layout,
     children: [
-      { path: '/companyComment', component: CompanyComment },
-      { path: '/interview', component: Interview },
-      { path: '/advice', component: Advice },
-      { path: '/', exact: true, component: AboutUs },
-      { component: NotFound },
+      {
+        path: '/companyComment',
+        component: CompanyComment,
+      },
+      {
+        path: '/interview',
+        component: Interview,
+      },
+      {
+        path: '/advice',
+        component: Advice,
+      },
+      {
+        path: '/AboutUs',
+        component: AboutUs,
+      },
+      {
+        path: '/',
+        redirect: '/aboutUs',
+      },
+      {
+        component: NotFound,
+      },
     ],
   },
 ];

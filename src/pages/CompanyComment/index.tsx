@@ -64,16 +64,16 @@ const CompanyComment = () => {
       width: 200,
       valueType: 'option',
       render: (text, record, _, action) => [
-        <Button key={record.id} type="primary" onClick={showDetailModal}>
+        <a key={record.id} type="primary" onClick={showDetailModal}>
           详情
-        </Button>,
-        <Button
+        </a>,
+        <a
           type="primary"
           key={record.id}
           onClick={() => { action?.startEditable?.(record.id); }}
         >
           编辑
-        </Button>,
+        </a>,
       ],
     },
   ];

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Menu, Spin } from 'antd';
 // import { history, useModel } from 'umi';
@@ -7,6 +7,8 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.module.scss';
 // import { outLogin } from '@/services/ant-design-pro/api';
 import type { MenuInfo } from 'rc-menu/lib/interface';
+import PersonalCenter from '@/components/PersonalCenter';
+import { useHistory } from 'ice';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -31,6 +33,8 @@ const loginOut = async () => {
 };
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+  const [personalModal, setPersonalModal] = useState(false);
+  const history = useHistory();
   const currentUser = {
     name: 'admin',
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
@@ -74,36 +78,48 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const onMenuClick = (event: MenuInfo) => {
     console.log('onMenuClick :>> ', event);
   }
+  const onPersonalClick = () => {
+    setPersonalModal(true);
+  };
+  const hideModal = () => {
+    setPersonalModal(false);
+  };
+  const onLogOutClick = () => {
+    history.push('/login');
+  }
 
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
       {menu && (
-        <Menu.Item key="center">
+        <Menu.Item key="center" onClick={onPersonalClick}>
           <UserOutlined />
           个人中心
         </Menu.Item>
       )}
-      {menu && (
+      {/* {menu && (
         <Menu.Item key="settings">
           <SettingOutlined />
           个人设置
         </Menu.Item>
-      )}
+      )} */}
       {menu && <Menu.Divider />}
 
-      <Menu.Item key="logout">
+      <Menu.Item key="logout" style={{ color: 'red' }} onClick={onLogOutClick}>
         <LogoutOutlined />
         退出登录
       </Menu.Item>
     </Menu>
   );
   return (
-    <HeaderDropdown overlay={menuHeaderDropdown}>
-      <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
-      </span>
-    </HeaderDropdown>
+    <>
+      <HeaderDropdown overlay={menuHeaderDropdown}>
+        <span className={`${styles.action} ${styles.account}`}>
+          <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+          <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+        </span>
+      </HeaderDropdown>
+      <PersonalCenter personalModal={personalModal} hideModal={hideModal} />
+    </>
   );
 };
 

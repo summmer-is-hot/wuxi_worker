@@ -1,11 +1,10 @@
-import { StarFilled } from '@ant-design/icons';
 import { Card, Col, Divider, Row, Typography } from 'antd';
 import LineChart from './components/Charts';
 import styles from './index.module.scss';
 
 const { Text, Link } = Typography;
 
-export default function AboutUs() {
+const AboutUs = () => {
   return (
     <div className={styles.container}>
       <Row gutter={16}>
@@ -40,7 +39,7 @@ export default function AboutUs() {
           </Text>
           <Divider orientation="left" orientationMargin="0">关于作者</Divider>
           <Text type="success">
-            2017年从事企业应用软件开发工作，技术栈：JavaScript、TypeScript、React.js、Vue.js、Node.js、Java...<br />
+            技术栈：JavaScript、TypeScript、React.js、Vue.js、Node.js、Java...<br />
             以上技术略懂一二，欢迎大佬指点~~<br />
             如有疑问和建议，请点击底部联系作者~~~
           </Text>
@@ -48,4 +47,6 @@ export default function AboutUs() {
       </Row>
     </div>
   );
-}
+};
+
+export default AboutUs;

@@ -1,7 +1,7 @@
 /* eslint-disable default-case */
 import { addProvidentFund, addSocialSecurity, discount, providentFundLevel, salaryLevel, scoreArray, socialSecurityLevel } from '@/utils/const';
 import { Form, Input, Button, Select, Space } from 'antd';
-import AddCompany from './components/AddCompany';
+import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
 
 const { TextArea } = Input;
@@ -36,7 +36,7 @@ const AddComment = () => {
     <Form {...layout} form={form} name="newComment" onFinish={onFinish}>
       <Form.Item name="name" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
         {/* <Input /> */}
-        <AddCompany getCompanyId={getCompanyId} />
+        <CompanySelect getCompanyId={getCompanyId} />
       </Form.Item>
       <Form.Item name="salaryLevel" label="工资水平" rules={[{ required: true, message: '请选择您认为的该公司工资水平' }]}>
         <Select
@@ -115,7 +115,7 @@ const AddComment = () => {
           }
         </Select>
       </Form.Item>
-      <Form.Item name="gender" label="点评：" rules={[{ required: true, message: '来都来了，对于该公司就随便说两句吧~~' }]}>
+      <Form.Item name="gender" label="点评" rules={[{ required: true, message: '来都来了，对于该公司就随便说两句吧~~' }]}>
         <TextArea placeholder="来都来了，对于该公司就随便说两句吧~~" />
       </Form.Item>
       <Form.Item {...tailLayout} className={styles.formItem}>

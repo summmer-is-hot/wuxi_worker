@@ -1,0 +1,22 @@
+// .password {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+// .passwordBtn {
+//   margin-left: 20px;
+// }
+
+
+.submit {
+  margin-bottom: 0;
+
+  :global {
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+  }
+}

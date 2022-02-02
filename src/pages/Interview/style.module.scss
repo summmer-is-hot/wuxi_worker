@@ -1,0 +1,11 @@
+.myCascader :global {
+  .ant-cascader-menu {
+    height: auto;
+    max-height: 450px;
+    min-width: 130px;
+  }
+
+  .ant-cascader-menu-item {
+    padding: 12px;
+  }
+}
