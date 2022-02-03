@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 import { addProvidentFund, addSocialSecurity, discount, providentFundLevel, salaryLevel, scoreArray, socialSecurityLevel } from '@/utils/const';
 import { Form, Input, Button, Select, Space } from 'antd';
 import CompanySelect from '@/components/CompanySelect';

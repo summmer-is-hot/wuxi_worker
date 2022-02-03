@@ -1,5 +1,8 @@
-import { Form, Input, Button, Modal } from 'antd';
+import { companySize } from '@/utils/const';
+import { Form, Input, Button, Modal, Select } from 'antd';
 import styles from './index.module.scss';
+
+const { Option } = Select;
 
 const layout = {
   labelCol: { span: 5 },
@@ -23,8 +26,19 @@ const AddCompany = (props: any) => {
         <Form.Item name="name" label="公司名称" rules={[{ required: true }]}>
           <Input placeholder="请填写公司名称" />
         </Form.Item>
-        <Form.Item name="gender" label="公司简称" rules={[{ required: true, message: '请填写公司简称' }]}>
-          <Input.TextArea placeholder="请填写公司简称" />
+        <Form.Item name="companySize" label="公司规模" rules={[{ required: true, message: '请选择公司规模' }]}>
+          <Select
+            placeholder="请选择公司规模"
+          >
+            {
+              companySize.map((item) => {
+                return <Option key={item.value} value={item.value}>{item.name}</Option>;
+              })
+            }
+          </Select>
+        </Form.Item>
+        <Form.Item name="introduction" label="公司简介" rules={[{ required: true, message: '请填写公司简介' }]}>
+          <Input.TextArea placeholder="请填写公司简介" />
         </Form.Item>
         <Form.Item {...tailLayout} className={styles.submit}>
           <Button type="primary" htmlType="submit">

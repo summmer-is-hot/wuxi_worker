@@ -106,3 +106,22 @@ export const addProvidentFund: any[] = [
         value: 0,
     },
 ];
+
+export const companySize: any[] = [
+    {
+        name: '0-99人',
+        value: 1,
+    },
+    {
+        name: '100-499人',
+        value: 2,
+    },
+    {
+        name: '500-999人',
+        value: 3,
+    },
+    {
+        name: '1000人以上',
+        value: 4,
+    },
+];
