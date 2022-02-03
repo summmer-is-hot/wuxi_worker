@@ -1,11 +1,29 @@
 /* eslint-disable max-len */
-import { List, Avatar, Space, Button, Card, Typography, Row, Col } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { List, Avatar, Space, Button, Card, Typography, Row, Col, Form, Radio } from 'antd';
+import { MessageOutlined, LikeOutlined, StarOutlined, SortDescendingOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import AddCompany from '@/components/AddCompany';
 import AddAdvice from '@/components/AddAdvice';
+import { deepCopyJSON } from '@/utils/utils';
 
-const { Text, Link } = Typography;
+const formItemLayout = {
+  labelCol: {
+    sm: {
+      span: 4,
+    },
+    lg: {
+      span: 3,
+    },
+    xl: {
+      span: 2,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+  },
+};
 
 const listData: any[] = [];
 for (let i = 0; i < 23; i++) {
@@ -29,26 +47,56 @@ const IconText = ({ icon, text }) => (
 
 const Advice = () => {
   const [addAdviceModal, setAddAdviceModal] = useState(false);
+  const [star, setStar] = useState<Number>(0);
+  const [form] = Form.useForm();
+
   const hideModal = () => {
     setAddAdviceModal(false);
   };
   const onAdviceClick = () => {
     setAddAdviceModal(true);
-  }
+  };
+  const toStar = () => {
+    const dpStar = deepCopyJSON(star);
+    setStar(Number(dpStar) + 1);
+  };
   return (
     <>
       {
         addAdviceModal && <AddAdvice addAdviceModal={addAdviceModal} hideModal={hideModal} />
       }
-      <Card>
-        <Row align="middle">
-          <Col span={20} >
-            <Text type="success">各位亲在这留下宝贵的意见吧~~</Text>
-          </Col>
-          <Col span={4}>
-            <Button type="primary" style={{ float: 'right' }} onClick={onAdviceClick}>新增留言</Button>
-          </Col>
-        </Row>
+      <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>
+        <Form
+          {...formItemLayout}
+          form={form}
+          // onValuesChange={deBounce(handleValuesChange, 500)}
+          // initialValues={{
+          //   orderKey: '_createTime',
+          //   ...searchParams,
+          // }}
+          labelAlign="left"
+        >
+          <Form.Item
+            label={
+              <>
+                <SortDescendingOutlined /> <span style={{ marginLeft: 8 }}>排序</span>
+              </>
+            }
+            name="orderKey"
+          >
+            <Radio.Group>
+              {/* <Radio.Button value="normal">默认</Radio.Button> */}
+              <Radio.Button value="updateTime">时间</Radio.Button>
+              <Radio.Button value="star">点赞</Radio.Button>
+            </Radio.Group>
+            <Button type="primary" icon={<PlusOutlined />} style={{ float: 'right' }} onClick={onAdviceClick}>
+              写留言
+            </Button>
+          </Form.Item>
+        </Form>
+        {/* <Button type="primary" icon={<SearchOutlined />} style={{ float: 'right' }}>
+          Search
+        </Button> */}
       </Card>
       <Card style={{ marginTop: '20px' }}>
         <List
@@ -66,7 +114,9 @@ const Advice = () => {
               key={item.title}
               actions={[
                 // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                <a onClick={toStar}>
+                  <IconText icon={LikeOutlined} text={star} key="list-vertical-like-o" />
+                </a>,
                 // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
               ]}
             // extra={

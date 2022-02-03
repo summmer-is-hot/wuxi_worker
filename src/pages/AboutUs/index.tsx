@@ -19,7 +19,7 @@ const AboutUs = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="访问量" bordered={false}>
+          <Card title="注册用户数量" bordered={false}>
             <LineChart />
           </Card>
         </Col>

@@ -1,3 +1,4 @@
+/* eslint-disable @iceworks/best-practices/no-secret-info */
 import {
   LockOutlined,
   MobileOutlined,
@@ -13,6 +14,7 @@ import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-de
 import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
 import { useHistory } from 'ice';
+import { setCookie } from '@/utils/utils';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -52,6 +54,9 @@ const Login: React.FC = () => {
   };
 
   const handleSubmit = async (values: any) => {
+    console.log('values :>> ', values);
+    setCookie('username', values.username);
+    setCookie('password', values.password);
     history.push('/');
     // try {
     //   // 登录
@@ -91,7 +96,7 @@ const Login: React.FC = () => {
           title="无锡IT小眷村"
           subTitle={'程序员找工作指南'}
           initialValues={{
-            autoLogin: true,
+            savePassword: true,
           }}
           // actions={[
           //   '其他登录方式',
@@ -215,8 +220,8 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
+            <ProFormCheckbox noStyle name="savePassword">
+              记住密码
             </ProFormCheckbox>
             <a
               style={{

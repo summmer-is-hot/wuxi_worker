@@ -150,6 +150,7 @@ const CompanyComment = () => {
             }
             return values;
           },
+          autoFocusFirstInput: false,
         }}
         pagination={{
           pageSize: 10,

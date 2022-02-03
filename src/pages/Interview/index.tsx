@@ -4,6 +4,8 @@ import { Button, Card, Form, Input, List, Radio } from 'antd';
 import { resources } from '@/utils/testdata';
 import styles from './index.module.scss';
 import { deBounce } from '@/utils/utils';
+import { useState } from 'react';
+import AddInterview from '@/components/AddInterview';
 
 const listGrid = {
   gutter: 16,
@@ -36,7 +38,7 @@ const formItemLayout = {
 
 const Interview = () => {
   const [form] = Form.useForm();
-
+  const [addInterviewModal, setAddInterviewModal] = useState(false);
 
   const handleValuesChange = (changedValues: any) => {
     console.log('changedValues :>> ', changedValues);
@@ -44,11 +46,22 @@ const Interview = () => {
     // setSearchParams(params);
     // deBounce(handleSearch());
   };
+
   const onSearch = () => {
     console.log('params :>> ', 111);
   };
+
+  const addInterviewClick = () => {
+    setAddInterviewModal(true)
+  };
+
+  const hideModal = () => {
+    setAddInterviewModal(false)
+  };
+
   return (
     <>
+      <AddInterview addInterviewModal={addInterviewModal} hideModal={hideModal} />
       <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>
         <Form
           {...formItemLayout}
@@ -80,11 +93,11 @@ const Interview = () => {
             name="orderKey"
           >
             <Radio.Group>
-              <Radio.Button value="normal">默认</Radio.Button>
-              <Radio.Button value="rate">评分</Radio.Button>
+              {/* <Radio.Button value="normal">默认</Radio.Button> */}
               <Radio.Button value="updateTime">时间</Radio.Button>
+              <Radio.Button value="rate">评分</Radio.Button>
             </Radio.Group>
-            <Button type="primary" icon={<PlusOutlined />} style={{ float: 'right' }}>
+            <Button type="primary" icon={<PlusOutlined />} style={{ float: 'right' }} onClick={addInterviewClick}>
               写面经
             </Button>
           </Form.Item>
