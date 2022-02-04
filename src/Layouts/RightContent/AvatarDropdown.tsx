@@ -9,6 +9,8 @@ import styles from './index.module.scss';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import PersonalCenter from '@/components/PersonalCenter';
 import { useHistory } from 'ice';
+import { headImg } from '@/utils/const';
+
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -37,7 +39,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const history = useHistory();
   const currentUser = {
     name: 'admin',
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    // avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    avatar: headImg(3),
   };
   // const { initialState, setInitialState } = useModel('@@initialState');
 

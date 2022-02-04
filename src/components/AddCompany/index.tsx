@@ -42,7 +42,7 @@ const AddCompany = (props: any) => {
         </Form.Item>
         <Form.Item {...tailLayout} className={styles.submit}>
           <Button type="primary" htmlType="submit">
-            提交
+            确定
           </Button>
         </Form.Item>
       </Form>

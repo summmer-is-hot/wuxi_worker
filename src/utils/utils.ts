@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable no-proto */
@@ -81,7 +82,7 @@ function type(x: any, strict = false) {
     return clsLow;
   }
 
-  if (x.constructor == Object) {
+  if (x.constructor === Object) {
     return clsLow;
   }
 
@@ -119,7 +120,7 @@ function deepCopy<T>(sourceData: T): T {
   if (!isClone(sourceData)) return sourceData;
 
   if (Array.isArray(sourceData)) {
-    return sourceData.map(item => deepCopy(item)) as unknown as T;
+    return sourceData.map((item) => deepCopy(item)) as unknown as T;
   }
   const obj: T = {} as T;
   for (const key in sourceData) {

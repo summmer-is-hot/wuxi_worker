@@ -120,7 +120,7 @@ const AddComment = () => {
       <Form.Item {...tailLayout} className={styles.formItem}>
         <Space className={styles.space}>
           <Button type="primary" htmlType="submit">
-            提交
+            确定
           </Button>
           <Button htmlType="button" onClick={onReset}>
             重置

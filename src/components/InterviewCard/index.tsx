@@ -23,6 +23,7 @@ import {
 // import { stringify } from 'querystring';
 import styles from './index.module.scss';
 import InterviewDrawer from '../InterviewDrawer';
+import { companyImg } from '@/utils/const';
 
 const { Paragraph } = Typography;
 const IconText = ({ icon, text }) => (
@@ -137,7 +138,8 @@ const InterviewCard = (props: any) => {
           <Card.Meta
             avatar={
               <>
-                <Avatar src={resource.icon ? resource.icon : '---'} alt={resource.name} />
+                {/* <Avatar src={resource.icon ? resource.icon : '---'} alt={resource.name} /> */}
+                <Avatar src={companyImg(5)} alt={'aaa'} />
                 {rate && (
                   <Rate
                     disabled

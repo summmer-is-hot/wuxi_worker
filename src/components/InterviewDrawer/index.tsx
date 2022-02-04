@@ -32,7 +32,7 @@ const InterviewDrawer = (props: any) => {
       <Drawer
         title="Multi-level drawer"
         width={'auto'}
-        closable={false}
+        // closable={false}
         onClose={closeDrawer}
         visible={drawerVisible}
       >
