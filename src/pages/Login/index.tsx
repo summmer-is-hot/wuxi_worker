@@ -16,9 +16,11 @@ import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-de
 import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
 import { useHistory } from 'ice';
-import { setCookie } from '@/utils/utils';
+import { getCookie, getQuery, setCookie } from '@/utils/utils';
 import Forgot from '@/components/Forgot';
 import { emailReg, passwordReg, sixLengthReg, sixteenLengthReg, tenLengthReg } from '@/utils/reg';
+import userService from '@/services/userService';
+import store from '@/store';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -37,6 +39,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<any>({});
   const [type, setType] = useState<string>('login');
   const [forgotModal, setForgotModal] = useState(false);
+  const [, userDispatchers] = store.useModel('user');
   // const { initialState, setInitialState } = useModel('@@initialState');
   const changeType = (value: any) => {
     // if (value === 'register') {
@@ -62,6 +65,26 @@ const Login: React.FC = () => {
     switch (type) {
       case 'login':
         console.log('loginvalues :>> ', type, values);
+        const loginRes = await userService.login(values);
+        console.log('isLogin :>> ', loginRes);
+        if (loginRes.status === 200) {
+          message.success('登录成功');
+          if (values.savePassword) {
+            setCookie('userName', values.userName);
+            setCookie('password', values.password);
+          } else {
+            setCookie('userName', '');
+            setCookie('password', '');
+          }
+          const userInfoRes = await userService.getUserInfo();
+          if (userInfoRes.status === 200) {
+            userDispatchers.saveUser({ currentUser: userInfoRes.result });
+            // /** 此方法会跳转到 redirect 参数所在的位置 */
+            if (!history) return;
+            const query = getQuery('redirect');
+            history.push(query || '/');
+          }
+        }
         break;
 
       case 'register':
@@ -71,7 +94,7 @@ const Login: React.FC = () => {
       default:
         break;
     }
-    // setCookie('username', values.username);
+    // setCookie('userName', values.userName);
     // setCookie('password', values.password);
     // history.push('/');
     // try {
@@ -121,6 +144,8 @@ const Login: React.FC = () => {
           title="无锡IT小眷村"
           subTitle={'程序员找工作指南'}
           initialValues={{
+            userName: getCookie('userName'),
+            password: getCookie('password'),
             savePassword: true,
           }}
           submitter={{
@@ -157,7 +182,7 @@ const Login: React.FC = () => {
           {type === 'login' && (
             <>
               <ProFormText
-                name="username"
+                name="userName"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
@@ -239,7 +264,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
-                name="password"
+                name="newPassword"
                 placeholder={'请输入密码'}
                 rules={[
                   {
@@ -257,7 +282,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
-                name="rePassword"
+                name="reNewPassword"
                 placeholder={'请再次输入密码'}
                 rules={[
                   {

@@ -160,4 +160,20 @@ module.exports = {
       },
     ],
   },
+  '/api/account/login': {
+    message: 'success',
+    status: 200,
+    result: {},
+  },
+  '/api/account/userInfo': {
+    message: 'success',
+    status: 200,
+    result: {
+      userId: 1,
+      userName: '111@qq.com',
+      nickName: 'Frank',
+      email: '111@qq.com',
+      head: 8,
+    },
+  },
 };

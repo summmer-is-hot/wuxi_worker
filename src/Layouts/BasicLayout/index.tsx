@@ -7,7 +7,7 @@ import RightContent from '../RightContent';
 import Footer from '../Footer';
 
 
-const loopMenuItem = (menus) =>
+const loopMenuItem = (menus: any) =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
     icon: createElement(icon),
@@ -15,6 +15,7 @@ const loopMenuItem = (menus) =>
   }));
 
 export default function BasicLayout({ children, location }) {
+  console.log('location :>> ', location);
   return (
     <ProLayout
       fixedHeader

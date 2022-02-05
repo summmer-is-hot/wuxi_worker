@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Menu, Spin } from 'antd';
-// import { history, useModel } from 'umi';
+import { Avatar, Menu, message, Spin } from 'antd';
+import store from '@/store';
 import { stringify } from 'querystring';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.module.scss';
@@ -10,6 +10,7 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import PersonalCenter from '@/components/PersonalCenter';
 import { useHistory } from 'ice';
 import { headImg } from '@/utils/const';
+import { IUser } from '@/interfaces/user';
 
 
 export type GlobalHeaderRightProps = {
@@ -35,12 +36,12 @@ const loginOut = async () => {
 };
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+  const [userState, userDispatchers] = store.useModel('user');
   const [personalModal, setPersonalModal] = useState(false);
   const history = useHistory();
   const currentUser = {
-    name: 'admin',
-    // avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    avatar: headImg(3),
+    name: userState.currentUser.nickName,
+    avatar: headImg(userState.currentUser.head),
   };
   // const { initialState, setInitialState } = useModel('@@initialState');
 
@@ -69,30 +70,24 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     </span>
   );
 
-  // if (!initialState) {
-  //   return loading;
-  // }
-
-  // const { currentUser } = initialState;
-
-  // if (!currentUser || !currentUser.name) {
-  //   return loading;
-  // }
-  const onMenuClick = (event: MenuInfo) => {
-    console.log('onMenuClick :>> ', event);
-  }
   const onPersonalClick = () => {
     setPersonalModal(true);
   };
+
   const hideModal = () => {
     setPersonalModal(false);
   };
+
   const onLogOutClick = () => {
-    history.push('/login');
-  }
+    const usr = {} as IUser;
+    userDispatchers.saveUser({ currentUser: usr });
+    message.success('您已退出登录');
+    // document.title = '无锡IT小眷村';
+    // history.replace('/login');
+  };
 
   const menuHeaderDropdown = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+    <Menu className={styles.menu} selectedKeys={[]}>
       {menu && (
         <Menu.Item key="center" onClick={onPersonalClick}>
           <UserOutlined />
