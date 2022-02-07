@@ -23,6 +23,7 @@ const AddCompany = (props: any) => {
     const res = await companyService.addCompany(values);
     if (res) {
       message.success('添加成功！');
+      form.resetFields();
       hideModal();
     }
   };
@@ -56,7 +57,7 @@ const AddCompany = (props: any) => {
             ]
           }
         >
-          <Input placeholder="请填写公司简称（10字内）" maxLength={10} />
+          <Input placeholder="请填写公司简称（15字内）" maxLength={15} />
         </Form.Item>
         <Form.Item name="companySize" label="公司规模" rules={[{ required: true, message: '请选择公司规模' }]}>
           <Select

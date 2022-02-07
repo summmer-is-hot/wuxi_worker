@@ -3,12 +3,13 @@ import user from './models/user';
 import chart from './models/chart';
 import comment from './models/comment';
 import company from './models/company';
-
+import interview from './models/interview';
 interface IAppStoreModels extends Models {
   user: typeof user;
   chart: typeof chart;
   comment: typeof comment;
   company: typeof company;
+  interview: typeof interview;
 }
 
 const appModels: IAppStoreModels = {
@@ -16,6 +17,7 @@ const appModels: IAppStoreModels = {
   chart,
   comment,
   company,
+  interview,
 };
 export default createStore(appModels);
 

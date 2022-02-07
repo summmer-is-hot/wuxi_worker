@@ -1,4 +1,136 @@
 module.exports = {
+  '/api/interview/getInterviewItemListById': {
+    message: 'success',
+    status: 200,
+    result: {
+      nextPage: 2,
+      data: [
+        {
+          id: 1,
+          head: 1,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          interviewDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+        },
+        {
+          id: 2,
+          head: 2,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          interviewDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+        },
+        {
+          id: 3,
+          head: 3,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          interviewDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+        },
+        {
+          id: 4,
+          head: 4,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          interviewDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+        },
+        {
+          id: 5,
+          head: 5,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          interviewDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+        },
+      ],
+    },
+  },
+
+  '/api/interview/updateInterviewLikeNum': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+
+  '/api/interview/addInterview': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+
+  '/api/interview/getInterviewList': {
+    message: 'success',
+    status: 200,
+    // result: {
+    //   total: 0,
+    //   data: [],
+    // },
+    result: {
+      total: 22,
+      data: [
+        {
+          id: 1,
+          createTime: '1644223424000',
+          updateTime: '1644223424000',
+          companyName: '大花盆',
+          introduction: '我是大华鹏',
+          companyImage: 5,
+          rate: 2,
+          likeNum: 9990,
+          isDelete: false,
+        },
+        {
+          id: 2,
+          createTime: '1644223465000',
+          updateTime: '1644223465000',
+          companyName: '法规及',
+          introduction: '二复活甲就赶快买各d',
+          companyImage: 2,
+          rate: 2,
+          likeNum: 678,
+          isDelete: false,
+        },
+        {
+          id: 3,
+          createTime: '1644223477000',
+          updateTime: '1644223477000',
+          companyName: '费三十多岁的飞机上来阿斯顿马丁',
+          introduction:
+            '水电费股份计划投入电饭锅地方规范化水电费股份计划投入电饭锅地方规范化水电费股份计划投入电饭锅地方规范化水电费股份计划投入电饭锅地方规范化',
+          companyImage: 4,
+          rate: 2,
+          likeNum: 8990,
+          isDelete: false,
+        },
+        {
+          id: 4,
+          createTime: '1644213477000',
+          updateTime: '1644213477000',
+          companyName: '方股东会',
+          introduction: '阿斯顿各位阿萨德士大夫',
+          companyImage: 3,
+          rate: 2,
+          likeNum: 28888,
+          isDelete: false,
+        },
+        {
+          id: 5,
+          createTime: '1644113477000',
+          updateTime: '1644113477000',
+          companyName: '电饭锅',
+          introduction: '颠覆三观电饭锅和投入和',
+          companyImage: 1,
+          rate: 2,
+          likeNum: 3456,
+          isDelete: false,
+        },
+      ],
+    },
+  },
+
   '/api/comment/addComment': {
     message: 'success',
     status: 200,

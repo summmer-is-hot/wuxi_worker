@@ -1,6 +1,6 @@
-const { getESLintConfig } = require('@iceworks/spec');
+import { getESLintConfig } from '@iceworks/spec';
 
-module.exports = getESLintConfig('react-ts', {
+export default getESLintConfig('react-ts', {
   rules: {
     'no-console': 'off',
     'max-len': 'off',

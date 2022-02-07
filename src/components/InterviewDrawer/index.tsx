@@ -1,19 +1,53 @@
 /* eslint-disable array-callback-return */
+import { IInterviewItem } from '@/interfaces/interview';
+import interviewService from '@/services/interviewService';
+import store from '@/store';
 import { Drawer, Button, Space, List } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InterviewItem from '../InterviewItem';
 import styles from './index.module.scss';
 
 const InterviewDrawer = (props: any) => {
-  const { drawerVisible, closeDrawer } = props;
-  const [initLoading, IsetnitLoading] = useState(false);
+  const { resource, drawerVisible, closeDrawer } = props;
   const [loading, setLoading] = useState(false);
-  const num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const onLoadMore = () => {
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [page, setPage] = useState<number>(1);
+  const [interviewState, interviewDispatcher] = store.useModel('interview')
+  const cpInterviewItemList = interviewState.interviewItemList;
 
+  const getInterviewItemListById = async () => {
+    const param = {
+      id: resource.id,
+      page
+    }
+    const res = await interviewService.getInterviewItemListById(param);
+    if (res) {
+      setLoading(false);
+      if (page === 1) {
+        interviewDispatcher.saveInterviewItem({ interviewItemList: res.result.data })
+
+      } else {
+        interviewDispatcher.saveInterviewItem({ interviewItemList: cpInterviewItemList.concat(res.result.data) })
+
+      }
+      if (res.result.nextPage) {
+        setPage(res.result.nextPage)
+      } else {
+        setHasNextPage(false)
+      }
+    }
+  };
+
+  useEffect(() => {
+    getInterviewItemListById();
+  }, [])
+
+  const onLoadMore = () => {
+    setLoading(true);
+    getInterviewItemListById();
   };
   const loadMore =
-    !initLoading && !loading ? (
+    hasNextPage ? (
       <div
         style={{
           textAlign: 'center',
@@ -22,7 +56,7 @@ const InterviewDrawer = (props: any) => {
           lineHeight: '32px',
         }}
       >
-        <Button onClick={onLoadMore}>loading more</Button>
+        <Button onClick={onLoadMore} loading={loading}>加载更多</Button>
       </div>
     ) : null;
 
@@ -30,29 +64,19 @@ const InterviewDrawer = (props: any) => {
   return (
     <>
       <Drawer
-        title="Multi-level drawer"
+        title={resource.companyName}
         width={'auto'}
         // closable={false}
         onClose={closeDrawer}
         visible={drawerVisible}
       >
-        {/* <Button type="primary" onClick={showChildrenDrawer}>
-          Two-level drawer
-        </Button> */}
-        {/* <Space>
-          {
-            num.map(() => {
-              return <InterviewItem />;
-            })
-          }
-        </Space> */}
-        <List
+        <List<IInterviewItem>
           itemLayout="vertical"
           loadMore={loadMore}
-          dataSource={num}
-          renderItem={(item, index) => (
+          dataSource={interviewState.interviewItemList}
+          renderItem={(item: IInterviewItem, index) => (
             <div className={index > 0 ? styles.listItem : undefined}>
-              <InterviewItem />
+              <InterviewItem interviewItem={item} />
             </div>
           )}
         />

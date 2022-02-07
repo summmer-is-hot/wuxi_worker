@@ -160,6 +160,16 @@ function getQuery(variable: any) {
   }
   return (false);
 }
+
+function numConvert(num: any) {
+  if (num >= 10000) {
+    num = Math.round(num / 100) / 100 + 'W';
+  } else if (num >= 1000) {
+    num = Math.round(num / 10) / 100 + 'K';
+  }
+  return num;
+}
+
 export {
   deBounce,
   getCookie,
@@ -167,4 +177,5 @@ export {
   deepCopy,
   deepCopyJSON,
   getQuery,
+  numConvert
 };

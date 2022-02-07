@@ -1,3 +1,4 @@
+import { headImg } from '@/utils/const';
 import { Skeleton, Switch, Card, Avatar, Typography } from 'antd';
 import { useState } from 'react';
 import NewParagraph from '../NewParagraph';
@@ -8,7 +9,7 @@ const { Title, Text } = Typography;
 
 const { Meta } = Card;
 
-const InterviewItem = () => {
+const InterviewItem = (props: any) => {
   const [loading, setLoading] = useState(false);
   const value = `Ant Design, a design language for background applications, is refined by Ant UED Team. Ant
   Design, a design language for background applications, is refined by Ant UED Team. Ant
@@ -16,6 +17,7 @@ const InterviewItem = () => {
   Design, a design language for background applications, is refined by Ant UED Team. Ant
   Design, a design language for background applications, is refined by Ant UED Team. Ant
   Design, a design language for background applications, is refined by Ant UED Team.`
+  const { interviewItem } = props;
 
   const onChange = checked => {
     setLoading(!checked);
@@ -24,8 +26,8 @@ const InterviewItem = () => {
   const title =
     (
       <>
-        <Text ellipsis className={styles.name}>frank111111111111111111111111111111111111111111</Text>
-        <Text className={styles.time}>2022年01月01日</Text>
+        <Text ellipsis className={styles.name}>{interviewItem.nickName}</Text>
+        <Text className={styles.time}>{interviewItem.createTime}</Text>
       </>
     );
 
@@ -36,10 +38,10 @@ const InterviewItem = () => {
       >
         <Skeleton loading={loading} avatar active>
           <Meta
-            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+            avatar={<Avatar src={headImg(interviewItem.head)} />}
             title={title}
             description={
-              <NewParagraph value={value} tooltip={false} />
+              <NewParagraph value={interviewItem.interviewDetail} tooltip={false} />
             }
           />
         </Skeleton>

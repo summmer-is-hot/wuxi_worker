@@ -15,6 +15,8 @@ import star_three from '@/assets/star_three.png';
 import star_four from '@/assets/star_four.png';
 import star_five from '@/assets/star_five.png';
 
+export const PAGE_SIZE = 12;
+
 export const codeMessage = {
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',

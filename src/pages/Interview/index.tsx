@@ -1,11 +1,14 @@
 import InterviewCard from '@/components/InterviewCard';
-import { PlusOutlined, SearchOutlined, SettingOutlined, SortDescendingOutlined } from '@ant-design/icons';
-import { Button, Card, Form, Input, List, Radio } from 'antd';
+import { PlusOutlined, RocketOutlined, SearchOutlined, SettingOutlined, SortDescendingOutlined } from '@ant-design/icons';
+import { Button, Card, Empty, Form, Input, List, Radio, Space } from 'antd';
 import { resources } from '@/utils/testdata';
 import styles from './index.module.scss';
 import { deBounce } from '@/utils/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddInterview from '@/components/AddInterview';
+import interviewService from '@/services/interviewService';
+import store from '@/store';
+import { PAGE_SIZE } from '@/utils/const';
 
 const listGrid = {
   gutter: 16,
@@ -37,18 +40,44 @@ const formItemLayout = {
 };
 
 const Interview = () => {
+  const [searchParams, setSearchParams] = useState<any>({ page: 1, pageSize: 12, companyName: '', sort: 'updateTime' });
+  const [loading, setLoading] = useState<boolean>(true);
   const [form] = Form.useForm();
   const [addInterviewModal, setAddInterviewModal] = useState(false);
+  const [interviewState, interviewDispatchers] = store.useModel('interview')
+  const [total, setTotal] = useState<number>(0);
+
+  const handleSearch = async (params?: any) => {
+    if (!params) {
+      params = {
+        page: 1,
+        pageSize: 12,
+        ...form.getFieldsValue()
+      }
+    }
+    setLoading(true);
+    console.log('handleSearch :>> ', form.getFieldsValue());
+    const interviewListRes = await interviewService.getInterviewList(params);
+    if (interviewListRes) {
+      setLoading(false);
+      interviewDispatchers.saveInterview({ interviewList: interviewListRes.result.data });
+      setTotal(interviewListRes.result.total)
+    }
+  }
+
+  useEffect(() => {
+    handleSearch();
+  }, [])
 
   const handleValuesChange = (changedValues: any) => {
     console.log('changedValues :>> ', changedValues);
-    // const params = { ...searchParams, ...changedValues, pageNum: 1 };
-    // setSearchParams(params);
-    // deBounce(handleSearch());
+    const params = { ...searchParams, ...changedValues, page: 1, pageSize: 12 };
+    setSearchParams(params);
+    handleSearch(params);
   };
 
   const onSearch = () => {
-    console.log('params :>> ', 111);
+    handleSearch(searchParams);
   };
 
   const addInterviewClick = () => {
@@ -62,15 +91,14 @@ const Interview = () => {
   return (
     <>
       <AddInterview addInterviewModal={addInterviewModal} hideModal={hideModal} />
-      <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>
+      <Card bordered={false} >
         <Form
           {...formItemLayout}
           form={form}
           onValuesChange={deBounce(handleValuesChange, 500)}
-          // initialValues={{
-          //   orderKey: '_createTime',
-          //   ...searchParams,
-          // }}
+          initialValues={{
+            ...searchParams,
+          }}
           labelAlign="left"
         >
           <Form.Item
@@ -79,86 +107,76 @@ const Interview = () => {
                 <SearchOutlined /> <span style={{ marginLeft: 8 }}>搜索</span>
               </>
             }
-            name="tags"
+            name="companyName"
             labelAlign="left"
           >
-            <Input.Search enterButton onSearch={onSearch} style={{ maxWidth: '540px' }} />
+            <Input.Search enterButton onSearch={deBounce(onSearch, 500)} style={{ maxWidth: '540px' }} />
           </Form.Item>
+
           <Form.Item
             label={
               <>
                 <SortDescendingOutlined /> <span style={{ marginLeft: 8 }}>排序</span>
               </>
             }
-            name="orderKey"
+            name="sort"
           >
-            <Radio.Group>
-              {/* <Radio.Button value="normal">默认</Radio.Button> */}
+            <Radio.Group >
               <Radio.Button value="updateTime">时间</Radio.Button>
               <Radio.Button value="rate">评分</Radio.Button>
             </Radio.Group>
-            <Button type="primary" icon={<PlusOutlined />} style={{ float: 'right' }} onClick={addInterviewClick}>
-              写面经
+          </Form.Item>
+          <Form.Item
+            style={{ marginBottom: 0 }}
+            label={
+              <>
+                <RocketOutlined /> <span style={{ marginLeft: 8 }}>操作</span>
+              </>
+            }
+          >
+            <Button type="primary" icon={<PlusOutlined />} onClick={addInterviewClick}>
+              {'写面经'}
             </Button>
           </Form.Item>
         </Form>
-        {/* <Button type="primary" icon={<SearchOutlined />} style={{ float: 'right' }}>
-          Search
-        </Button> */}
       </Card>
       <br />
       <List
-        rowKey="_id"
-        // loading={loading}
-        dataSource={resources}
+        rowKey="id"
+        loading={loading}
+        dataSource={interviewState.interviewList}
         grid={listGrid}
         pagination={{
-          pageSize: 12,
-          current: 1,
+          pageSize: searchParams.pageSize ?? PAGE_SIZE,
+          current: searchParams.page ?? 1,
           showSizeChanger: false,
-          total: 100,
+          total,
           onChange(pageNum, pageSize) {
-            // const params = {
-            //   ...searchParams,
-            //   pageSize,
-            //   pageNum,
-            // };
-            // setSearchParams(params);
-            // doSearch(params);
+            console.log('object :>> ', pageNum, pageSize);
+            const params = {
+              ...searchParams,
+              pageSize,
+              page: pageNum,
+            };
+            setSearchParams(params);
+            handleSearch(params);
           },
         }}
-        // pagination={{
-        //   pageSize: searchParams.pageSize ?? PAGE_SIZE,
-        //   current: searchParams.pageNum ?? 1,
-        //   showSizeChanger: false,
-        //   total,
-        //   onChange(pageNum, pageSize) {
-        //     const params = {
-        //       ...searchParams,
-        //       pageSize,
-        //       pageNum,
-        //     };
-        //     setSearchParams(params);
-        //     doSearch(params);
-        //   },
-        // }}
-        // locale={{
-        //   emptyText: (
-        //     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无资源">
-        //       <Link to="/addResource">
-        //         <Button type="primary" size="large">
-        //           推荐资源得积分
-        //         </Button>
-        //       </Link>
-        //     </Empty>
-        //   ),
-        // }}
+        locale={{
+          emptyText: (
+            <Empty description="暂无内容哦~~">
+              <Button type="primary" size="large" onClick={addInterviewClick}>
+                抢个沙发~
+              </Button>
+            </Empty>
+          ),
+        }}
         renderItem={(item) => {
           return (
-            <List.Item key={item._id}>
+            <List.Item key={item.id}>
               <InterviewCard
                 resource={item}
-                loading={false}
+                loading={loading}
                 prePageState={1}
                 keyword={11}
               />
