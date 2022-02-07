@@ -8,5 +8,7 @@ module.exports = getESLintConfig('react-ts', {
     '@typescript-eslint/consistent-type-assertions': 'off',
     'no-case-declarations': 'off',
     '@typescript-eslint/indent': 'off',
+    'no-nested-ternary': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 });

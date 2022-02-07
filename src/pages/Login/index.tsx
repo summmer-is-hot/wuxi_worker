@@ -67,7 +67,7 @@ const Login: React.FC = () => {
         console.log('loginvalues :>> ', type, values);
         const loginRes = await userService.login(values);
         console.log('isLogin :>> ', loginRes);
-        if (loginRes.status === 200) {
+        if (loginRes) {
           message.success('登录成功');
           if (values.savePassword) {
             setCookie('userName', values.userName);
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
             setCookie('password', '');
           }
           const userInfoRes = await userService.getUserInfo();
-          if (userInfoRes.status === 200) {
+          if (userInfoRes.status) {
             userDispatchers.saveUser({ currentUser: userInfoRes.result });
             // /** 此方法会跳转到 redirect 参数所在的位置 */
             if (!history) return;

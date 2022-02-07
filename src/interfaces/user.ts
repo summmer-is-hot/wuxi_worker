@@ -5,4 +5,5 @@ export interface IUser {
   password: string;
   email: string;
   head: number;
+  power: number;
 }

@@ -1,29 +1,16 @@
-/* eslint-disable no-nested-ternary */
-import React, { useRef, useState } from 'react';
-import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Button, Tag, Space, Menu, Dropdown, Modal } from 'antd';
+import { useRef, useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Tag, Space, Modal } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import { request } from 'ice';
+import ProTable from '@ant-design/pro-table';
 import CommentDetail from './compoents/CommentDetail';
 import AddComment from './compoents/AddComment';
+import { IComment } from '@/interfaces/comment';
+import commentService from '@/services/commentService';
 
-const waitTime = (time = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
-interface CompanyItem {
-  id: number;
-  name: string;
-  comment: string;
-  score: number;
-}
 
 const CompanyComment = () => {
-  const columns: Array<ProColumns<CompanyItem>> = [
+  const columns: Array<ProColumns<IComment>> = [
     {
       title: '小眷村',
       dataIndex: 'name',
@@ -32,7 +19,7 @@ const CompanyComment = () => {
         rules: [
           {
             required: true,
-            message: '此项为必填项',
+            message: '请填写小眷村（即公司简称）',
           },
         ],
       },
@@ -40,6 +27,14 @@ const CompanyComment = () => {
     {
       title: '最新点评',
       width: 600,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请填写最新点评',
+          },
+        ],
+      },
       dataIndex: 'comment',
       search: false,
     },
@@ -48,6 +43,19 @@ const CompanyComment = () => {
       width: 100,
       sorter: true,
       dataIndex: 'score',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请填写综合评分',
+          },
+          {
+            pattern: /^((0\.[1-9]{1})|10|(([1-9]{1})(\.\d{1})?))$/,
+            message: '填写0-10的整数，可保留一位小数',
+          },
+        ],
+      },
+      editable: false,
       search: false,
       render: (_, record) => (
         <Space>
@@ -55,8 +63,8 @@ const CompanyComment = () => {
             color={record.score > 6 ? 'success' : record.score > 3 ? 'processing' : record.score > 0 ? 'warning' : record.score <= 0 ? 'error' : ''}
           >
             {record.score}
-          </Tag>
-        </Space>
+          </Tag >
+        </Space >
       ),
     },
     {
@@ -64,7 +72,7 @@ const CompanyComment = () => {
       width: 200,
       valueType: 'option',
       render: (text, record, _, action) => [
-        <a key={record.id} type="primary" onClick={showDetailModal}>
+        <a key={record.id} type="primary" onClick={() => showDetailModal(record.id)}>
           详情
         </a>,
         <a
@@ -80,9 +88,12 @@ const CompanyComment = () => {
   const actionRef = useRef<ActionType>();
   const [detailVisible, setDetailVisible] = useState(false);
   const [addCommentVisible, setAddCommentVisible] = useState(false);
+  const [commentId, setCommentId] = useState<number>(0);
 
 
-  const showDetailModal = () => {
+  const showDetailModal = (id: number) => {
+    console.log('id :>> ', id);
+    setCommentId(id);
     setDetailVisible(true);
   };
 
@@ -108,28 +119,36 @@ const CompanyComment = () => {
 
   return (
     <>
-      <ProTable<CompanyItem>
+      <ProTable<IComment>
         columns={columns}
         actionRef={actionRef}
         request={async (params = {}, sort) => {
-          console.log(sort);
-          return request<{
-            data: CompanyItem[];
-            // }>('https://proapi.azurewebsites.net/github/issues', {
-          }>('/api/getCoCommentList', {
-            params,
+          console.log('requestobject :>> ', params, sort);
+          const res = await commentService.getCoCommentList({
+            name: params.name || '',
+            page: params.current,
+            pageSize: params.pageSize,
           });
+          return {
+            data: res.result.data,
+            // success 请返回 true，
+            // 不然 table 会停止解析数据，即使有数据
+            success: true,
+            // 不传会使用 data 的长度，如果是分页一定要传
+            total: res.result.total,
+          };
         }}
         editable={{
           type: 'multiple',
           onSave: async (rowKey, data, row) => {
             console.log(rowKey, data, row);
-            await waitTime(2000);
+            await commentService.updateCommentById(data);
           },
-          onDelete: async (key, row) => {
-            console.log(key, row);
-            await waitTime(2000);
-          },
+          // onDelete: async (key, row) => {
+          //   console.log(key, row);
+          //   await waitTime(2000);
+          // },
+          actionRender: (row, config, defaultDom) => [defaultDom.save, defaultDom.cancel],
         }}
         columnsState={{
           persistenceKey: 'pro-table-singe-demos',
@@ -164,10 +183,10 @@ const CompanyComment = () => {
         ]}
       />
       <Modal title="历史点评" width={1400} visible={detailVisible} onOk={handleDetailOk} onCancel={handleDetailCancel}>
-        <CommentDetail />
+        <CommentDetail commentId={commentId} />
       </Modal>
       <Modal footer={null} title="添加评论" visible={addCommentVisible} onOk={handleAddCommentOk} onCancel={handleAddCommentCancel}>
-        <AddComment />
+        <AddComment hideModal={handleAddCommentOk} />
       </Modal>
     </>
   );

@@ -1,7 +1,9 @@
 import { addProvidentFund, addSocialSecurity, discount, providentFundLevel, salaryLevel, scoreArray, socialSecurityLevel } from '@/utils/const';
-import { Form, Input, Button, Select, Space } from 'antd';
+import { Form, Input, Button, Select, Space, message } from 'antd';
 import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
+import commentService from '@/services/commentService';
+import { deBounce } from '@/utils/utils';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -14,11 +16,18 @@ const tailLayout = {
   wrapperCol: { offset: 17, span: 7 },
 };
 
-const AddComment = () => {
+const AddComment = (props: any) => {
+  const { hideModal } = props;
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values);
+    const res = await commentService.addComment(values);
+    if (res) {
+      message.success('添加成功！');
+      form.resetFields();
+      hideModal();
+    }
   };
 
   const onReset = () => {
@@ -26,15 +35,13 @@ const AddComment = () => {
   };
   const getCompanyId = (value: any) => {
     form.setFieldsValue({
-      name: value.value,
+      companyId: value.value,
     });
-    console.log('getCompanyId :>> ', value);
   };
 
   return (
-    <Form {...layout} form={form} name="newComment" onFinish={onFinish}>
-      <Form.Item name="name" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
-        {/* <Input /> */}
+    <Form {...layout} form={form} name="newComment" onFinish={deBounce(onFinish, 500)}>
+      <Form.Item name="companyId" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
         <CompanySelect getCompanyId={getCompanyId} />
       </Form.Item>
       <Form.Item name="salaryLevel" label="工资水平" rules={[{ required: true, message: '请选择您认为的该公司工资水平' }]}>
@@ -115,7 +122,7 @@ const AddComment = () => {
         </Select>
       </Form.Item>
       <Form.Item name="gender" label="点评" rules={[{ required: true, message: '来都来了，对于该公司就随便说两句吧~~' }]}>
-        <TextArea placeholder="来都来了，对于该公司就随便说两句吧~~" />
+        <TextArea placeholder="来都来了，对于该公司就随便说两句吧(100字内)~~" maxLength={100} />
       </Form.Item>
       <Form.Item {...tailLayout} className={styles.formItem}>
         <Space className={styles.space}>

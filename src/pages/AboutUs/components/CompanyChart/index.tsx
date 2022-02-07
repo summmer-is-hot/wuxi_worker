@@ -2,17 +2,14 @@ import React, { useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import store from '@/store';
 import chartService from '@/services/chartService';
-import { message } from 'antd';
 
 const CompanyChart: React.FC = () => {
   const [chartState, chartDispatchers] = store.useModel('chart');
 
   const getChartForCoNumber = async () => {
     const chartRes = await chartService.getChartForCoNumber();
-    if (chartRes.status === 200) {
+    if (chartRes) {
       chartDispatchers.saveChart({ companyChart: chartRes.result });
-    } else {
-      message.error('系统出错');
     }
   };
 

@@ -1,5 +1,7 @@
+import companyService from '@/services/companyService';
+// import store from '@/store';
 import { PlusOutlined } from '@ant-design/icons';
-import { Divider, Input, Select, Space, Spin, Typography } from 'antd';
+import { Divider, Select, Spin, Typography } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import debounce from 'lodash/debounce';
 import { useMemo, useRef, useState } from 'react';
@@ -55,33 +57,33 @@ function DebounceSelect<
 }
 
 // Usage of DebounceSelect
-interface UserValue {
+interface CompanyValue {
   label: string;
   value: string;
 }
 
-async function fetchUserList(username: string): Promise<UserValue[]> {
-  console.log('fetching user', username);
-
-  return fetch('https://randomuser.me/api/?results=5')
-    .then((response) => response.json())
-    .then((body) =>
-      body.results.map(
-        (user: { name: { first: string; last: string }; login: { username: string } }) => ({
-          label: `${user.name.first} ${user.name.last}`,
-          value: user.login.username,
-        }),
-      ));
-}
 
 const CompanySelect = (props: any) => {
   const { getCompanyId } = props;
-  const [value, setValue] = useState<UserValue[]>([]);
-  const [newCoName, setNewCoName] = useState('');
+  const [value, setValue] = useState<CompanyValue[]>([]);
   const [showAddCompany, setShowAddCompany] = useState(false);
+  // const [companyState, companyDispatchers] = store.useModel('company');
 
-  const onNameChange = (event) => {
-    setNewCoName(event.target.value);
+  const getCompanyList = async (searchVal: any) => {
+    console.log('searchVal :>> ', searchVal);
+    const param = {
+      name: searchVal || '',
+    };
+    const companyListRes = await companyService.getCompanyList(param);
+    if (companyListRes) {
+      // companyDispatchers.saveCompany({ companyList: companyListRes.result });
+      return companyListRes.result.map(
+        (item: any) => ({
+          label: item.name,
+          value: item.id,
+        }),
+      );
+    }
   };
 
   const addItem = () => {
@@ -98,7 +100,7 @@ const CompanySelect = (props: any) => {
         showSearch
         value={value}
         placeholder="请选择公司名称"
-        fetchOptions={fetchUserList}
+        fetchOptions={getCompanyList}
         onChange={(newValue) => {
           setValue(newValue);
           getCompanyId(newValue);
@@ -109,7 +111,6 @@ const CompanySelect = (props: any) => {
             {menu}
             <Divider style={{ margin: '4px 0' }} />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8 }}>
-              {/* <Input style={{ flex: 'auto' }} value={newCoName} onChange={onNameChange} /> */}
               <Text type="warning">未搜索到？试试新增？</Text>
 
               <a

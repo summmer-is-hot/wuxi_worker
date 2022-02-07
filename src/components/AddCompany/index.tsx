@@ -1,5 +1,7 @@
+import companyService from '@/services/companyService';
 import { companySize } from '@/utils/const';
-import { Form, Input, Button, Modal, Select } from 'antd';
+import { deBounce } from '@/utils/utils';
+import { Form, Input, Button, Modal, Select, message } from 'antd';
 import styles from './index.module.scss';
 
 const { Option } = Select;
@@ -16,15 +18,45 @@ const AddCompany = (props: any) => {
   const { addCompanyModal, hideModal } = props;
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values);
+    const res = await companyService.addCompany(values);
+    if (res) {
+      message.success('添加成功！');
+      hideModal();
+    }
   };
 
   return (
     <Modal title="添加公司" visible={addCompanyModal} onCancel={hideModal} footer={null}>
-      <Form {...layout} form={form} name="add-company" onFinish={onFinish}>
-        <Form.Item name="name" label="公司名称" rules={[{ required: true }]}>
-          <Input placeholder="请填写公司名称" />
+      <Form {...layout} form={form} name="add-company" onFinish={deBounce(onFinish, 500)}>
+        <Form.Item
+          name="name"
+          label="公司名称"
+          rules={
+            [
+              {
+                required: true,
+                message: '请填写公司名称!',
+              },
+            ]
+          }
+        >
+          <Input placeholder="请填写公司名称（30字内）" maxLength={30} />
+        </Form.Item>
+        <Form.Item
+          name="microName"
+          label="公司简称"
+          rules={
+            [
+              {
+                required: true,
+                message: '请填写公司简称!',
+              },
+            ]
+          }
+        >
+          <Input placeholder="请填写公司简称（10字内）" maxLength={10} />
         </Form.Item>
         <Form.Item name="companySize" label="公司规模" rules={[{ required: true, message: '请选择公司规模' }]}>
           <Select
@@ -37,8 +69,19 @@ const AddCompany = (props: any) => {
             }
           </Select>
         </Form.Item>
-        <Form.Item name="introduction" label="公司简介" rules={[{ required: true, message: '请填写公司简介' }]}>
-          <Input.TextArea placeholder="请填写公司简介" />
+        <Form.Item
+          name="introduction"
+          label="公司简介"
+          rules={
+            [
+              {
+                required: true,
+                message: '请填写公司简介',
+              },
+            ]
+          }
+        >
+          <Input.TextArea placeholder="请填写公司简介（100字内）" maxLength={100} />
         </Form.Item>
         <Form.Item {...tailLayout} className={styles.submit}>
           <Button type="primary" htmlType="submit">

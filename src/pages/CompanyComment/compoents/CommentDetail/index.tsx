@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useRequest } from 'ice';
+import store from '@/store';
+import commentService from '@/services/commentService';
 
 const columns = [
   {
@@ -51,15 +53,27 @@ const columns = [
   },
 ];
 
-const CommentDetail = () => {
-  const { data, error, loading, request: getCommentById } = useRequest({ url: '/api/getCommentById' });
-  const { commentList = [] } = data || {};
+const CommentDetail = (props: any) => {
+  const { commentId } = props;
+  console.log('commentId :>> ', commentId);
+  const [commentState, commentDispatchers] = store.useModel('comment');
+  // const { data, error, loading, request: getCommentById } = useRequest({ url: '/api/getCommentById' });
+  // const { commentList = [] } = data || {};
+  const getCommentById = async () => {
+    const param = {
+      id: commentId,
+    };
+    const res = await commentService.getCommentById(param);
+    if (res) {
+      commentDispatchers.saveCommentItem({ commentItemList: res.result });
+    }
+  };
 
   useEffect(() => {
     getCommentById();
-  }, []);
+  }, [commentId]);
   return (
-    <Table columns={columns} dataSource={commentList} />
+    <Table columns={columns} dataSource={commentState.commentItemList} />
   );
 };
 
