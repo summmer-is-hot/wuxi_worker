@@ -52,11 +52,11 @@ const Interview = () => {
   };
 
   const addInterviewClick = () => {
-    setAddInterviewModal(true)
+    setAddInterviewModal(true);
   };
 
   const hideModal = () => {
-    setAddInterviewModal(false)
+    setAddInterviewModal(false);
   };
 
   return (
@@ -66,7 +66,7 @@ const Interview = () => {
         <Form
           {...formItemLayout}
           form={form}
-          // onValuesChange={deBounce(handleValuesChange, 500)}
+          onValuesChange={deBounce(handleValuesChange, 500)}
           // initialValues={{
           //   orderKey: '_createTime',
           //   ...searchParams,

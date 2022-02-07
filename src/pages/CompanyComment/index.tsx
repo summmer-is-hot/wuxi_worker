@@ -3,8 +3,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Tag, Space, Modal } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import CommentDetail from './compoents/CommentDetail';
-import AddComment from './compoents/AddComment';
+import CommentDetail from './components/CommentDetail';
+import AddComment from './components/AddComment';
 import { IComment } from '@/interfaces/comment';
 import commentService from '@/services/commentService';
 

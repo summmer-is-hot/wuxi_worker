@@ -121,7 +121,7 @@ const AddComment = (props: any) => {
           }
         </Select>
       </Form.Item>
-      <Form.Item name="gender" label="点评" rules={[{ required: true, message: '来都来了，对于该公司就随便说两句吧~~' }]}>
+      <Form.Item name="comment" label="点评" rules={[{ required: true, message: '来都来了，对于该公司就随便说两句吧~~' }]}>
         <TextArea placeholder="来都来了，对于该公司就随便说两句吧(100字内)~~" maxLength={100} />
       </Form.Item>
       <Form.Item {...tailLayout} className={styles.formItem}>

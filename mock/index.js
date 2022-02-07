@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 module.exports = {
   '/api/comment/addComment': {
     message: 'success',

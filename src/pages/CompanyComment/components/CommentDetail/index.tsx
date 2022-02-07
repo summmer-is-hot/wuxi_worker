@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Table } from 'antd';
-import { useRequest } from 'ice';
 import store from '@/store';
 import commentService from '@/services/commentService';
 
@@ -55,10 +54,7 @@ const columns = [
 
 const CommentDetail = (props: any) => {
   const { commentId } = props;
-  console.log('commentId :>> ', commentId);
   const [commentState, commentDispatchers] = store.useModel('comment');
-  // const { data, error, loading, request: getCommentById } = useRequest({ url: '/api/getCommentById' });
-  // const { commentList = [] } = data || {};
   const getCommentById = async () => {
     const param = {
       id: commentId,
