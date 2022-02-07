@@ -13,7 +13,7 @@ export default {
   }),
 
   reducers: {
-    update(prevState: any, payload: any) {
+    update(prevState: IUser, payload: IUser) {
       return { ...prevState, ...payload };
     },
   },

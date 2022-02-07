@@ -7,5 +7,6 @@ module.exports = getESLintConfig('react-ts', {
     'max-lines': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
     'no-case-declarations': 'off',
+    '@typescript-eslint/indent': 'off',
   },
 });

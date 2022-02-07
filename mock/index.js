@@ -41,35 +41,105 @@ module.exports = {
       },
     ],
   },
-  '/api/getCoNumForChart': {
-    chartData: [
+  '/api/about/getChartForCoNumber': {
+    message: 'success',
+    status: 200,
+    result: [
       {
-        Date: '2021-07',
+        date: '2021-07',
         scales: 0,
       },
       {
-        Date: '2021-08',
+        date: '2021-08',
+        scales: 6,
+      },
+      {
+        date: '2021-09',
+        scales: 22,
+      },
+      {
+        date: '2021-10',
+        scales: 28,
+      },
+      {
+        date: '2021-11',
+        scales: 37,
+      },
+      {
+        date: '2021-12',
+        scales: 46,
+      },
+      {
+        date: '2022-01',
+        scales: 51,
+      },
+    ],
+  },
+  '/api/about/getChartForCommentNumber': {
+    message: 'success',
+    status: 200,
+    result: [
+      {
+        date: '2021-07',
+        scales: 0,
+      },
+      {
+        date: '2021-08',
         scales: 21,
       },
       {
-        Date: '2021-09',
+        date: '2021-09',
         scales: 33,
       },
       {
-        Date: '2021-10',
+        date: '2021-10',
         scales: 56,
       },
       {
-        Date: '2021-11',
+        date: '2021-11',
         scales: 61,
       },
       {
-        Date: '2021-12',
+        date: '2021-12',
         scales: 74,
       },
       {
-        Date: '2022-01',
+        date: '2022-01',
         scales: 79,
+      },
+    ],
+  },
+  '/api/about/getChartForInterviewNumber': {
+    message: 'success',
+    status: 200,
+    result: [
+      {
+        date: '2021-07',
+        scales: 0,
+      },
+      {
+        date: '2021-08',
+        scales: 3,
+      },
+      {
+        date: '2021-09',
+        scales: 7,
+      },
+      {
+        date: '2021-10',
+        scales: 15,
+      },
+      {
+        date: '2021-11',
+        scales: 24,
+      },
+      {
+        date: '2021-12',
+        scales: 33,
+      },
+      {
+        date: '2022-01',
+        scales: 41,
       },
     ],
   },

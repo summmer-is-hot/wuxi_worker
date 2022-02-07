@@ -1,5 +1,7 @@
 import { Card, Col, Divider, Row, Typography } from 'antd';
-import LineChart from './components/Charts';
+import CommentChart from './components/CommentChart';
+import CompanyChart from './components/CompanyChart';
+import InterviewChart from './components/InterviewChart';
 import styles from './index.module.scss';
 
 const { Text, Link } = Typography;
@@ -9,18 +11,18 @@ const AboutUs = () => {
     <div className={styles.container}>
       <Row gutter={16}>
         <Col span={8}>
-          <Card title="公司数量" bordered={false}>
-            <LineChart />
+          <Card title="公司量趋势" bordered={false}>
+            <CompanyChart />
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="评论数量" bordered={false}>
-            <LineChart />
+          <Card title="评论量趋势" bordered={false}>
+            <CommentChart />
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="注册用户数量" bordered={false}>
-            <LineChart />
+          <Card title="面经量趋势" bordered={false}>
+            <InterviewChart />
           </Card>
         </Col>
       </Row>
