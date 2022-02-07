@@ -11,17 +11,17 @@ const AboutUs = () => {
     <div className={styles.container}>
       <Row gutter={16}>
         <Col span={8}>
-          <Card title="公司量趋势" bordered={false}>
+          <Card title="公司数量趋势" bordered={false}>
             <CompanyChart />
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="评论量趋势" bordered={false}>
+          <Card title="评论数量趋势" bordered={false}>
             <CommentChart />
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="面经量趋势" bordered={false}>
+          <Card title="面经数量趋势" bordered={false}>
             <InterviewChart />
           </Card>
         </Col>
@@ -31,8 +31,8 @@ const AboutUs = () => {
           <Divider orientation="left" orientationMargin="0">关于网站</Divider>
           <Text type="warning">
             开设此网站的旨在为无锡从事互联网行业工作的朋友提供求职指南~~
-            此网站由网友们提供了无锡部分互联网企业的一些评论，福利待遇等等信息...<br />
-            欢迎各位老铁补充和完善~~~~<br />
+            此网站汇集了网友们提供的无锡部分互联网企业的一些评价、福利待遇等等信息...<br />
+            欢迎各位热心网友补充和完善~~~~<br />
             如果觉得不错~~欢迎点击下方Github链接给我的开源项目<Text type="danger">点点star</Text>~~,当然也可以
             <Link href="https://github.com/summmer-is-hot/wuxi_worker" target="_blank">
               点击这里

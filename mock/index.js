@@ -108,31 +108,31 @@ module.exports = {
     result: [
       {
         date: '2021-07',
-        scales: 0,
+        num: 0,
       },
       {
         date: '2021-08',
-        scales: 6,
+        num: 6,
       },
       {
         date: '2021-09',
-        scales: 22,
+        num: 22,
       },
       {
         date: '2021-10',
-        scales: 28,
+        num: 28,
       },
       {
         date: '2021-11',
-        scales: 37,
+        num: 37,
       },
       {
         date: '2021-12',
-        scales: 46,
+        num: 46,
       },
       {
         date: '2022-01',
-        scales: 51,
+        num: 51,
       },
     ],
   },
@@ -142,31 +142,31 @@ module.exports = {
     result: [
       {
         date: '2021-07',
-        scales: 0,
+        num: 0,
       },
       {
         date: '2021-08',
-        scales: 21,
+        num: 21,
       },
       {
         date: '2021-09',
-        scales: 33,
+        num: 33,
       },
       {
         date: '2021-10',
-        scales: 56,
+        num: 56,
       },
       {
         date: '2021-11',
-        scales: 61,
+        num: 61,
       },
       {
         date: '2021-12',
-        scales: 74,
+        num: 74,
       },
       {
         date: '2022-01',
-        scales: 79,
+        num: 79,
       },
     ],
   },
@@ -176,31 +176,31 @@ module.exports = {
     result: [
       {
         date: '2021-07',
-        scales: 0,
+        num: 0,
       },
       {
         date: '2021-08',
-        scales: 3,
+        num: 3,
       },
       {
         date: '2021-09',
-        scales: 7,
+        num: 7,
       },
       {
         date: '2021-10',
-        scales: 15,
+        num: 15,
       },
       {
         date: '2021-11',
-        scales: 24,
+        num: 24,
       },
       {
         date: '2021-12',
-        scales: 33,
+        num: 33,
       },
       {
         date: '2022-01',
-        scales: 41,
+        num: 41,
       },
     ],
   },

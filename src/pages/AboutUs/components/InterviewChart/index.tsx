@@ -22,7 +22,7 @@ const InterviewChart: React.FC = () => {
     // padding: 'auto',
     height: 360,
     xField: 'date',
-    yField: 'scales',
+    yField: 'num',
     point: {
       size: 5,
       shape: 'diamond',
