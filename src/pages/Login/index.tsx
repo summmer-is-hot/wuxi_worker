@@ -12,7 +12,7 @@ import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
 import { useHistory } from 'ice';
 import { getQuery } from '@/utils/utils';
-import Forgot from '@/components/Forgot';
+import Forgot from './components/Forgot';
 import { emailReg, passwordReg, sixLengthReg, sixteenLengthReg, tenLengthReg } from '@/utils/reg';
 import userService from '@/services/userService';
 import store from '@/store';
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
         <LoginForm
           logo={<img alt="logo" src="/favicon.png" />}
           title="无锡IT小眷村"
-          subTitle={'程序员找工作指南'}
+          subTitle={'互联网人员找工作指南'}
           initialValues={{
             userName: localStorage.getItem('userName'),
             password: localStorage.getItem('password'),

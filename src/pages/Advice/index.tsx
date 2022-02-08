@@ -1,7 +1,7 @@
 import { List, Avatar, Space, Button, Card, Form, Radio, Typography, Empty } from 'antd';
 import { LikeOutlined, SortDescendingOutlined, PlusOutlined, RocketOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-import AddAdvice from '@/components/AddAdvice';
+import AddAdvice from './components/AddAdvice';
 import { deBounce, numConvert } from '@/utils/utils';
 import { cloneDeep } from 'lodash';
 import styles from './index.module.scss';

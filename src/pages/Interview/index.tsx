@@ -1,9 +1,9 @@
-import InterviewCard from '@/components/InterviewCard';
+import InterviewCard from './components/InterviewCard';
 import { useEffect, useState } from 'react';
 import { PlusOutlined, RocketOutlined, SearchOutlined, SortDescendingOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Form, Input, List, Radio } from 'antd';
 import { deBounce } from '@/utils/utils';
-import AddInterview from '@/components/AddInterview';
+import AddInterview from './components/AddInterview';
 import interviewService from '@/services/interviewService';
 import store from '@/store';
 import { PAGE_SIZE } from '@/utils/const';

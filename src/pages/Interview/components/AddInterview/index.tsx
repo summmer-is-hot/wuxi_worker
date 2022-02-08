@@ -1,6 +1,6 @@
 import interviewService from '@/services/interviewService';
 import { Form, Input, Button, Modal, message } from 'antd';
-import CompanySelect from '../CompanySelect';
+import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
 
 const layout = {

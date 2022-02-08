@@ -4,7 +4,7 @@ import { Avatar, Menu, message } from 'antd';
 import store from '@/store';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.module.scss';
-import PersonalCenter from '@/components/PersonalCenter';
+import PersonalCenter from './components/PersonalCenter';
 import { headImg } from '@/utils/const';
 import { IUser } from '@/interfaces/user';
 
