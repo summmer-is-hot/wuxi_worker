@@ -1,13 +1,12 @@
 import InterviewCard from '@/components/InterviewCard';
+import { useEffect, useState } from 'react';
 import { PlusOutlined, RocketOutlined, SearchOutlined, SortDescendingOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Form, Input, List, Radio } from 'antd';
 import { deBounce } from '@/utils/utils';
-import { useEffect, useState } from 'react';
 import AddInterview from '@/components/AddInterview';
 import interviewService from '@/services/interviewService';
 import store from '@/store';
 import { PAGE_SIZE } from '@/utils/const';
-// import styles from './index.module.scss';
 
 
 const listGrid = {
@@ -40,7 +39,8 @@ const formItemLayout = {
 };
 
 const Interview = () => {
-  const [searchParams, setSearchParams] = useState<any>({ page: 1, pageSize: 12, companyName: '', sort: 'updateTime' });
+  const initValue = { companyName: '', sort: 'updateTime' };
+  const [searchParams, setSearchParams] = useState<any>({ page: 1, pageSize: 12, ...initValue });
   const [loading, setLoading] = useState<boolean>(true);
   const [form] = Form.useForm();
   const [addInterviewModal, setAddInterviewModal] = useState(false);
@@ -93,7 +93,7 @@ const Interview = () => {
           form={form}
           onValuesChange={deBounce(handleValuesChange, 500)}
           initialValues={{
-            ...searchParams,
+            ...initValue
           }}
           labelAlign="left"
         >
@@ -148,7 +148,6 @@ const Interview = () => {
           showSizeChanger: false,
           total,
           onChange(pageNum, pageSize) {
-            console.log('object :>> ', pageNum, pageSize);
             const params = {
               ...searchParams,
               pageSize,

@@ -16,6 +16,8 @@ declare module '*.module.scss' {
 
 declare module 'lodash/debounce'
 
+declare module 'lodash'
+
 declare module '*.png';
 
 declare module '*.jpeg';

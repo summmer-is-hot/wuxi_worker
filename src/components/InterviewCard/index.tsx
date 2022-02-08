@@ -7,7 +7,8 @@ import {
 import styles from './index.module.scss';
 import InterviewDrawer from '../InterviewDrawer';
 import { companyImg } from '@/utils/const';
-import { deBounce, deepCopy, numConvert } from '@/utils/utils';
+import { deBounce, numConvert } from '@/utils/utils';
+import { cloneDeep } from 'lodash';
 import store from '@/store';
 import interviewService from '@/services/interviewService';
 
@@ -28,7 +29,7 @@ const InterviewCard = (props: any) => {
 
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
   const [interviewState, interviewDispatchers] = store.useModel('interview');
-  const cpInterviewList = deepCopy(interviewState.interviewList);
+  const cpInterviewList = cloneDeep(interviewState.interviewList);
 
   const onLikeClick = () => {
     cpInterviewList.map((item) => {

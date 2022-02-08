@@ -2,7 +2,8 @@ import { List, Avatar, Space, Button, Card, Form, Radio, Typography, Empty } fro
 import { LikeOutlined, SortDescendingOutlined, PlusOutlined, RocketOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import AddAdvice from '@/components/AddAdvice';
-import { deBounce, deepCopy, numConvert } from '@/utils/utils';
+import { deBounce, numConvert } from '@/utils/utils';
+import { cloneDeep } from 'lodash';
 import styles from './index.module.scss';
 import store from '@/store';
 import adviceService from '@/services/adviceService';
@@ -42,7 +43,7 @@ const Advice = () => {
   const [params, setParams] = useState({ page: 1, pageSize: 12, sort: 'updateTime' });
   const [loading, setLoading] = useState<boolean>(true);
   const [total, setTotal] = useState<number>(0);
-  const cpAdviceList = deepCopy(adviceState.adviceList);
+  const cpAdviceList = cloneDeep(adviceState.adviceList);
 
   const getAdviceList = async (param?: any) => {
     if (!param) {
