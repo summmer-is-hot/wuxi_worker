@@ -33,9 +33,13 @@ const CommentChart: React.FC = () => {
       },
     },
     xAxis: {
-      // type: 'timeCat',
       tickCount: 5,
     },
+    tooltip: {
+      formatter: (item: any) => {
+        return { name: '数量', value: item.num };
+      },
+    }
   };
   return <Line {...config} />;
 };

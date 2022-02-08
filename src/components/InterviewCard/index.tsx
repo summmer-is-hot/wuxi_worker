@@ -1,6 +1,5 @@
 import { Avatar, Card, Space, Tooltip, Typography } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
-// import { connect, Dispatch, history } from 'umi';
+import React, { useState } from 'react';
 import {
   LikeOutlined,
   LoginOutlined,

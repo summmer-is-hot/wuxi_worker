@@ -1,14 +1,14 @@
 import InterviewCard from '@/components/InterviewCard';
-import { PlusOutlined, RocketOutlined, SearchOutlined, SettingOutlined, SortDescendingOutlined } from '@ant-design/icons';
-import { Button, Card, Empty, Form, Input, List, Radio, Space } from 'antd';
-import { resources } from '@/utils/testdata';
-import styles from './index.module.scss';
+import { PlusOutlined, RocketOutlined, SearchOutlined, SortDescendingOutlined } from '@ant-design/icons';
+import { Button, Card, Empty, Form, Input, List, Radio } from 'antd';
 import { deBounce } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import AddInterview from '@/components/AddInterview';
 import interviewService from '@/services/interviewService';
 import store from '@/store';
 import { PAGE_SIZE } from '@/utils/const';
+// import styles from './index.module.scss';
+
 
 const listGrid = {
   gutter: 16,
@@ -49,11 +49,7 @@ const Interview = () => {
 
   const handleSearch = async (params?: any) => {
     if (!params) {
-      params = {
-        page: 1,
-        pageSize: 12,
-        ...form.getFieldsValue()
-      }
+      params = searchParams;
     }
     setLoading(true);
     console.log('handleSearch :>> ', form.getFieldsValue());

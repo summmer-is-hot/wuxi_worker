@@ -1,4 +1,5 @@
-import { Form, Input, Button, Modal } from 'antd';
+import adviceService from '@/services/adviceService';
+import { Form, Input, Button, Modal, message } from 'antd';
 import styles from './index.module.scss';
 
 const layout = {
@@ -13,15 +14,30 @@ const AddAdvice = (props: any) => {
   const { addAdviceModal, hideModal } = props;
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values);
+    const res = await adviceService.addAdvice(values);
+    if (res) {
+      message.success('添加成功！');
+      form.resetFields();
+      hideModal();
+    }
   };
 
   return (
     <Modal title="添加留言" visible={addAdviceModal} onCancel={hideModal} footer={null}>
       <Form {...layout} form={form} name="add-advice" onFinish={onFinish}>
-        <Form.Item name="advice" label="意见与建议" rules={[{ required: true, message: '请填写意见与建议' }]}>
-          <Input.TextArea placeholder="请填写意见与建议" />
+        <Form.Item
+          name="advice"
+          label="意见与建议"
+          rules={[
+            {
+              required: true,
+              message: '请填写意见与建议!'
+            }
+          ]}
+        >
+          <Input.TextArea rows={5} placeholder="请填写意见与建议（100字内）" maxLength={100} />
         </Form.Item>
         <Form.Item {...tailLayout} className={styles.submit}>
           <Button type="primary" htmlType="submit">

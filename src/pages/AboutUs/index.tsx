@@ -1,7 +1,7 @@
 import { Card, Col, Divider, Row, Typography } from 'antd';
-import CommentChart from './components/CommentChart';
-import CompanyChart from './components/CompanyChart';
-import InterviewChart from './components/InterviewChart';
+import CommentChart from './CommentChart';
+import CompanyChart from './CompanyChart';
+import InterviewChart from './InterviewChart';
 import styles from './index.module.scss';
 
 const { Text, Link } = Typography;

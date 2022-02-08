@@ -3,22 +3,25 @@ import { Line } from '@ant-design/plots';
 import store from '@/store';
 import chartService from '@/services/chartService';
 
-const InterviewChart: React.FC = () => {
+const CompanyChart: React.FC = () => {
   const [chartState, chartDispatchers] = store.useModel('chart');
 
-  const getChartForInterviewNumber = async () => {
-    const chartRes = await chartService.getChartForInterviewNumber();
+  const getChartForCoNumber = async () => {
+    const chartRes = await chartService.getChartForCoNumber();
     if (chartRes) {
-      chartDispatchers.saveChart({ interviewChart: chartRes.result });
+      chartDispatchers.saveChart({ companyChart: chartRes.result });
     }
   };
 
   useEffect(() => {
-    getChartForInterviewNumber();
+    // (async function () {
+    //   await fetchRepos();
+    // }());
+    getChartForCoNumber();
   }, []);
 
   const config = {
-    data: chartState.interviewChart,
+    data: chartState.companyChart,
     // padding: 'auto',
     height: 360,
     xField: 'date',
@@ -33,11 +36,15 @@ const InterviewChart: React.FC = () => {
       },
     },
     xAxis: {
-      // type: 'timeCat',
       tickCount: 5,
     },
+    tooltip: {
+      formatter: (item: any) => {
+        return { name: '数量', value: item.num };
+      },
+    }
   };
   return <Line {...config} />;
 };
-export default InterviewChart;
+export default CompanyChart;
 

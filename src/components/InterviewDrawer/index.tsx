@@ -1,8 +1,7 @@
-/* eslint-disable array-callback-return */
 import { IInterviewItem } from '@/interfaces/interview';
 import interviewService from '@/services/interviewService';
 import store from '@/store';
-import { Drawer, Button, Space, List } from 'antd';
+import { Drawer, Button, List } from 'antd';
 import { useEffect, useState } from 'react';
 import InterviewItem from '../InterviewItem';
 import styles from './index.module.scss';
@@ -48,17 +47,14 @@ const InterviewDrawer = (props: any) => {
   };
   const loadMore =
     hasNextPage ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
+      <div className={styles.loadMore}>
         <Button onClick={onLoadMore} loading={loading}>加载更多</Button>
       </div>
-    ) : null;
+    ) : (
+      <div className={styles.loadMore}>
+        <Button disabled>暂无更多~</Button>
+      </div>
+    );
 
 
   return (

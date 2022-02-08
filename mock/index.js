@@ -1,4 +1,70 @@
 module.exports = {
+  '/api/advice/addAdvice': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+
+  '/api/advice/updateAdviceLikeNum': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+
+  '/api/advice/getAdviceList': {
+    message: 'success',
+    status: 200,
+    result: {
+      total: 20,
+      data: [
+        {
+          id: 1,
+          head: 1,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          adviceDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+          likeNum: 10,
+        },
+        {
+          id: 2,
+          head: 2,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          adviceDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+          likeNum: 88,
+        },
+        {
+          id: 3,
+          head: 3,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          adviceDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+          likeNum: 888,
+        },
+        {
+          id: 4,
+          head: 4,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          adviceDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+          likeNum: 9990,
+        },
+        {
+          id: 5,
+          head: 5,
+          nickName: 'string',
+          createTime: '2021年11月22日',
+          adviceDetail:
+            'sssssssssss的点点滴滴多多啊啊啊啊啊啊啊啊啊少时诵诗书所所所所的点点滴滴多多多多多多少时诵诗书所所所所所吧吧吧吧吧吧吧吧保险丝娃娃',
+          likeNum: 1234,
+        },
+      ],
+    },
+  },
   '/api/interview/getInterviewItemListById': {
     message: 'success',
     status: 200,

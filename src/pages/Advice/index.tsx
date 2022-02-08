@@ -1,10 +1,13 @@
-/* eslint-disable max-len */
-import { List, Avatar, Space, Button, Card, Typography, Row, Col, Form, Radio } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined, SortDescendingOutlined, PlusOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
-import AddCompany from '@/components/AddCompany';
+import { List, Avatar, Space, Button, Card, Form, Radio, Typography, Empty } from 'antd';
+import { LikeOutlined, SortDescendingOutlined, PlusOutlined, RocketOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import AddAdvice from '@/components/AddAdvice';
-import { deepCopyJSON } from '@/utils/utils';
+import { deBounce, deepCopy, numConvert } from '@/utils/utils';
+import styles from './index.module.scss';
+import store from '@/store';
+import adviceService from '@/services/adviceService';
+import { headImg, PAGE_SIZE } from '@/utils/const';
+
 
 const formItemLayout = {
   labelCol: {
@@ -25,19 +28,6 @@ const formItemLayout = {
   },
 };
 
-const listData: any[] = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://ant.design',
-    title: `ant design part ${i}`,
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
-
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -47,8 +37,35 @@ const IconText = ({ icon, text }) => (
 
 const Advice = () => {
   const [addAdviceModal, setAddAdviceModal] = useState(false);
-  const [star, setStar] = useState<Number>(0);
   const [form] = Form.useForm();
+  const [adviceState, adviceDispatchers] = store.useModel('advice');
+  const [params, setParams] = useState({ page: 1, pageSize: 12, sort: 'updateTime' });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [total, setTotal] = useState<number>(0);
+  const cpAdviceList = deepCopy(adviceState.adviceList);
+
+  const getAdviceList = async (param?: any) => {
+    if (!param) {
+      param = params
+    }
+    const res = await adviceService.getInterviewList(param);
+    if (res) {
+      setLoading(false);
+      adviceDispatchers.saveAdvice({ adviceList: res.result.data });
+      setTotal(res.result.total)
+    }
+  }
+
+  useEffect(() => {
+    getAdviceList();
+  }, [])
+
+  const handleValuesChange = (changedValues: any) => {
+    console.log('changedValues :>> ', changedValues);
+    const param = { ...params, ...changedValues, page: 1, pageSize: 12, };
+    setParams(param);
+    getAdviceList(param);
+  };
 
   const hideModal = () => {
     setAddAdviceModal(false);
@@ -56,24 +73,31 @@ const Advice = () => {
   const onAdviceClick = () => {
     setAddAdviceModal(true);
   };
-  const toStar = () => {
-    const dpStar = deepCopyJSON(star);
-    setStar(Number(dpStar) + 1);
+  const toLike = (id: number) => {
+    cpAdviceList.map((item) => {
+      if (item.id === id) {
+        item.likeNum += 1;
+        const param = {
+          likeNum: item.likeNum,
+        }
+        adviceService.updateAdviceLikeNum(param);
+      }
+    })
+    adviceDispatchers.saveAdvice({ adviceList: cpAdviceList })
   };
   return (
     <>
       {
         addAdviceModal && <AddAdvice addAdviceModal={addAdviceModal} hideModal={hideModal} />
       }
-      <Card bordered={false} bodyStyle={{ paddingBottom: 0 }}>
+      <Card bordered={false} >
         <Form
           {...formItemLayout}
           form={form}
-          // onValuesChange={deBounce(handleValuesChange, 500)}
-          // initialValues={{
-          //   orderKey: '_createTime',
-          //   ...searchParams,
-          // }}
+          onValuesChange={deBounce(handleValuesChange, 500)}
+          initialValues={{
+            ...params,
+          }}
           labelAlign="left"
         >
           <Form.Item
@@ -82,57 +106,77 @@ const Advice = () => {
                 <SortDescendingOutlined /> <span style={{ marginLeft: 8 }}>排序</span>
               </>
             }
-            name="orderKey"
+            name="sort"
           >
             <Radio.Group>
-              {/* <Radio.Button value="normal">默认</Radio.Button> */}
               <Radio.Button value="updateTime">时间</Radio.Button>
-              <Radio.Button value="star">点赞</Radio.Button>
+              <Radio.Button value="like">点赞</Radio.Button>
             </Radio.Group>
-            <Button type="primary" icon={<PlusOutlined />} style={{ float: 'right' }} onClick={onAdviceClick}>
-              写留言
+          </Form.Item>
+          <Form.Item
+            style={{ marginBottom: 0 }}
+            label={
+              <>
+                <RocketOutlined /> <span style={{ marginLeft: 8 }}>操作</span>
+              </>
+            }
+          >
+            <Button type="primary" icon={<PlusOutlined />} onClick={onAdviceClick}>
+              {'写留言'}
             </Button>
           </Form.Item>
         </Form>
-        {/* <Button type="primary" icon={<SearchOutlined />} style={{ float: 'right' }}>
-          Search
-        </Button> */}
       </Card>
       <Card style={{ marginTop: '20px' }}>
         <List
+          loading={loading}
           itemLayout="vertical"
           size="large"
           pagination={{
-            onChange: (page) => {
-              console.log(page);
+            pageSize: params.pageSize ?? PAGE_SIZE,
+            current: params.page ?? 1,
+            showSizeChanger: false,
+            total,
+            onChange(pageNum, pageSize) {
+              const param = {
+                ...params,
+                page: pageNum,
+                pageSize
+              };
+              setParams(param);
+              getAdviceList(param);
             },
-            pageSize: 3,
           }}
-          dataSource={listData}
+          locale={{
+            emptyText: (
+              <Empty description="暂无建议哦~~">
+                <Button type="primary" size="large" onClick={onAdviceClick}>
+                  抢个沙发~
+                </Button>
+              </Empty>
+            ),
+          }}
+          dataSource={adviceState.adviceList}
           renderItem={(item) => (
             <List.Item
-              key={item.title}
+              key={item.id}
               actions={[
-                // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                <a onClick={toStar}>
-                  <IconText icon={LikeOutlined} text={star} key="list-vertical-like-o" />
+                <a onClick={deBounce(() => toLike(item.id), 200)}>
+                  <IconText icon={LikeOutlined} text={numConvert(item.likeNum)} key="list-vertical-like-o" />
                 </a>,
-                // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
               ]}
-            // extra={
-            //   <img
-            //     width={272}
-            //     alt="logo"
-            //     src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-            //   />
-            // }
             >
               <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<a href={item.href}>{item.title}</a>}
-              // description={item.description}
+                className={styles.meta}
+                avatar={<Avatar src={headImg(item.head)} size={'large'} />}
+                title={
+                  <div className={styles.metaLayout}>
+                    <p className={styles.title}>{item.nickName}</p>
+                    <Typography.Text className={styles.time} type='secondary'> {item.createTime}</Typography.Text>
+                  </div>
+                }
               />
-              {item.content}
+              {item.adviceDetail}
             </List.Item>
           )}
         />
