@@ -28,7 +28,6 @@ export default () => {
             </Tooltip>
           ),
           href: '#!',
-          // blankTarget: true,
         },
         {
           key: 'Disclaimer',

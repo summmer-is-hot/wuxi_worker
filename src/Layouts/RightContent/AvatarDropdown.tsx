@@ -33,8 +33,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     const usr = {} as IUser;
     userDispatchers.saveUser({ currentUser: usr });
     message.success('您已退出登录');
-    // document.title = '无锡IT小眷村';
-    // history.replace('/login');
   };
 
   const menuHeaderDropdown = (

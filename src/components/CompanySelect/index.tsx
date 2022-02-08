@@ -1,5 +1,4 @@
 import companyService from '@/services/companyService';
-// import store from '@/store';
 import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Select, Spin, Typography } from 'antd';
 import { SelectProps } from 'antd/es/select';
@@ -67,7 +66,6 @@ const CompanySelect = (props: any) => {
   const { getCompanyId } = props;
   const [value, setValue] = useState<CompanyValue[]>([]);
   const [showAddCompany, setShowAddCompany] = useState(false);
-  // const [companyState, companyDispatchers] = store.useModel('company');
 
   const getCompanyList = async (searchVal: any) => {
     console.log('searchVal :>> ', searchVal);
@@ -76,7 +74,6 @@ const CompanySelect = (props: any) => {
     };
     const companyListRes = await companyService.getCompanyList(param);
     if (companyListRes) {
-      // companyDispatchers.saveCompany({ companyList: companyListRes.result });
       return companyListRes.result.map(
         (item: any) => ({
           label: item.name,

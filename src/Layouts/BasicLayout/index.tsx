@@ -1,6 +1,5 @@
-/* eslint-disable no-script-url */
 import { createElement } from 'react';
-import ProLayout, { PageContainer, ProBreadcrumb } from '@ant-design/pro-layout';
+import ProLayout from '@ant-design/pro-layout';
 import { Link } from 'ice';
 import { asideMenuConfig } from './menuConfig';
 import RightContent from '../RightContent';
@@ -20,7 +19,6 @@ export default function BasicLayout({ children, location }) {
     <ProLayout
       fixedHeader
       fixSiderbar
-      // loading
       logo={<img alt="logo" src="/favicon.png" />}
       title="无锡IT小眷村"
       style={{
@@ -29,10 +27,6 @@ export default function BasicLayout({ children, location }) {
       location={{
         pathname: location.pathname,
       }}
-      // headerContentRender={() => <ProBreadcrumb />}
-      // breadcrumbRender={(routers = []) => [
-      //   ...asideMenuConfig,
-      // ]}
       menuDataRender={() => loopMenuItem(asideMenuConfig)}
       menuItemRender={(item, defaultDom) => {
         if (!item.path) {

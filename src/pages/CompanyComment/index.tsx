@@ -144,10 +144,6 @@ const CompanyComment = () => {
             console.log(rowKey, data, row);
             await commentService.updateCommentById(data);
           },
-          // onDelete: async (key, row) => {
-          //   console.log(key, row);
-          //   await waitTime(2000);
-          // },
           actionRender: (row, config, defaultDom) => [defaultDom.save, defaultDom.cancel],
         }}
         columnsState={{

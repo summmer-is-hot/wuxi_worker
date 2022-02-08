@@ -16,9 +16,6 @@ const GlobalHeaderRight: React.FC = () => {
     if (window.location.pathname !== '/login') {
       history.replace({
         pathname: '/login',
-        // search: qs.stringify({
-        //   redirect: pathname,
-        // }),
         search: `redirect=${pathname}`,
       });
     }

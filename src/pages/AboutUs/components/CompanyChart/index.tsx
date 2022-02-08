@@ -14,9 +14,6 @@ const CompanyChart: React.FC = () => {
   };
 
   useEffect(() => {
-    // (async function () {
-    //   await fetchRepos();
-    // }());
     getChartForCoNumber();
   }, []);
 

@@ -1,6 +1,5 @@
 import { IRouterConfig, lazy } from 'ice';
 import Layout from '@/Layouts/BasicLayout';
-// import Login from '@/pages/Login';
 
 const AboutUs = lazy(() => import('@/pages/AboutUs/index'));
 const Login = lazy(() => import('@/pages/Login'));
