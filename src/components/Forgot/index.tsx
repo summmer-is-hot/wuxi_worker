@@ -1,9 +1,8 @@
+import userService from '@/services/userService';
 import { emailReg, passwordReg, sixLengthReg } from '@/utils/reg';
 import { ProFormCaptcha } from '@ant-design/pro-form';
-import { Form, Input, Button, Modal, Select, message } from 'antd';
+import { Form, Input, Button, Modal, message } from 'antd';
 import styles from './index.module.scss';
-
-const { Option } = Select;
 
 const layout = {
   labelCol: { span: 5 },
@@ -17,8 +16,14 @@ const Forgot = (props: any) => {
   const { forgotModal, hideModal } = props;
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values);
+    const res = await userService.findPassword(values);
+    if (res) {
+      message.success('找回成功!');
+      hideModal();
+      form.resetFields();
+    }
   };
 
   return (

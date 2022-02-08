@@ -602,6 +602,26 @@ module.exports = {
       },
     ],
   },
+  '/api/account/regist': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+  '/api/account/sendCode': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+  '/api/account/findPassword': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
+  '/api/account/updateUserInfo': {
+    message: 'success',
+    status: 200,
+    result: 'success',
+  },
   '/api/account/login': {
     message: 'success',
     status: 200,
