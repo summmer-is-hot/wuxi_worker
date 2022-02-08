@@ -11,7 +11,7 @@ import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-de
 import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
 import { useHistory } from 'ice';
-import { getCookie, getQuery, setCookie } from '@/utils/utils';
+import { getQuery } from '@/utils/utils';
 import Forgot from '@/components/Forgot';
 import { emailReg, passwordReg, sixLengthReg, sixteenLengthReg, tenLengthReg } from '@/utils/reg';
 import userService from '@/services/userService';
@@ -37,11 +37,11 @@ const Login: React.FC = () => {
         if (loginRes) {
           message.success('登录成功!');
           if (values.savePassword) {
-            setCookie('userName', values.userName);
-            setCookie('password', values.password);
+            localStorage.setItem('userName', values.userName);
+            localStorage.setItem('password', values.password);
           } else {
-            setCookie('userName', '');
-            setCookie('password', '');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('password');
           }
           const userInfoRes = await userService.getUserInfo();
           if (userInfoRes.status) {
@@ -86,8 +86,8 @@ const Login: React.FC = () => {
           title="无锡IT小眷村"
           subTitle={'程序员找工作指南'}
           initialValues={{
-            userName: getCookie('userName'),
-            password: getCookie('password'),
+            userName: localStorage.getItem('userName'),
+            password: localStorage.getItem('password'),
             savePassword: true,
           }}
           submitter={{
