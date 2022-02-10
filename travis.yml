@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "12"
-install: npm install
-script:
-  - npm run build
-  - docker build -t wuxi_worker.
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push wuxi_worker  
