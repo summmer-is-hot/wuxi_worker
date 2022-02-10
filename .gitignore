@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 index.module.scss.d.ts
 package-lock.json
+
+Dockerfile
+.travis.yml
