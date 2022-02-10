@@ -43,7 +43,7 @@ const AboutUs = () => {
           <Text type="success">
             技术栈：JavaScript、TypeScript、React.js、Vue.js、Node.js、Java...<br />
             以上技术略懂一二，欢迎大佬指点~~<br />
-            如有疑问和建议，请点击底部联系作者~~~
+            如有疑问和建议，请点击底部联系作者~~~~
           </Text>
         </Col>
       </Row>
