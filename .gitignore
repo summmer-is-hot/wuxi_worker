@@ -25,4 +25,4 @@ index.module.scss.d.ts
 package-lock.json
 
 Dockerfile
-.travis.yml
+*.yml
