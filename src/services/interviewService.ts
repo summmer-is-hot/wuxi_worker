@@ -13,8 +13,8 @@ export default {
         return await request.post('/api/interview/addInterview', param);
     },
 
-    async updateInterviewLikeNum(param: any) {
-        return await request.put('/api/interview/updateInterviewLikeNum', param);
+    async updateCompanyLikeNum(param: any) {
+        return await request.put('/api/interview/updateCompanyLikeNum', param);
     },
 
     async getInterviewItemListById(param: any) {

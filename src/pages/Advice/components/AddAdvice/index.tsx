@@ -1,4 +1,5 @@
 import adviceService from '@/services/adviceService';
+import store from '@/store';
 import { Form, Input, Button, Modal, message } from 'antd';
 import styles from './index.module.scss';
 
@@ -12,11 +13,16 @@ const tailLayout = {
 
 const AddAdvice = (props: any) => {
   const { addAdviceModal, hideModal } = props;
+  const [userState, userStateDispatchers] = store.useModel('user')
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
     console.log(values);
-    const res = await adviceService.addAdvice(values);
+    const params = {
+      ...values,
+      userId: userState.currentUser.userId
+    }
+    const res = await adviceService.addAdvice(params);
     if (res) {
       message.success('添加成功！');
       form.resetFields();

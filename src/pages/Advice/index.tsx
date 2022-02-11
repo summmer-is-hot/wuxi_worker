@@ -77,10 +77,11 @@ const Advice = () => {
   const toLike = (id: number) => {
     cpAdviceList.map((item) => {
       if (item.id === id) {
-        item.likeNum += 1;
         const param = {
           likeNum: item.likeNum,
+          id
         }
+        item.likeNum += 1;
         adviceService.updateAdviceLikeNum(param);
       }
     })

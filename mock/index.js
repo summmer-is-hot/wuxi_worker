@@ -115,7 +115,7 @@ module.exports = {
     },
   },
 
-  '/api/interview/updateInterviewLikeNum': {
+  '/api/interview/updateCompanyLikeNum': {
     message: 'success',
     status: 200,
     result: 'success',

@@ -2,6 +2,7 @@ import interviewService from '@/services/interviewService';
 import { Form, Input, Button, Modal, message } from 'antd';
 import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
+import store from '@/store';
 
 const layout = {
   labelCol: { span: 5 },
@@ -12,12 +13,17 @@ const tailLayout = {
 };
 
 const AddInterview = (props: any) => {
+  const [userState, userStateDispatchers] = store.useModel('user');
   const { addInterviewModal, hideModal } = props;
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
     console.log(values);
-    const res = await interviewService.addInterview(values);
+    const params = {
+      ...values,
+      userId: userState.currentUser.userId
+    }
+    const res = await interviewService.addInterview(params);
     if (res) {
       message.success('添加成功！');
       form.resetFields();

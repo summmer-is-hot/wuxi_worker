@@ -34,11 +34,12 @@ const InterviewCard = (props: any) => {
   const onLikeClick = () => {
     cpInterviewList.map((item) => {
       if (item.id === resource.id) {
-        item.likeNum += 1;
         const param = {
           likeNum: item.likeNum,
+          id: resource.id
         }
-        interviewService.updateInterviewLikeNum(param);
+        item.likeNum += 1;
+        interviewService.updateCompanyLikeNum(param);
       }
     })
     interviewDispatchers.saveInterview({ interviewList: cpInterviewList })
