@@ -2,7 +2,7 @@ import { List, Avatar, Space, Button, Card, Form, Radio, Typography, Empty } fro
 import { LikeOutlined, SortDescendingOutlined, PlusOutlined, RocketOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import AddAdvice from './components/AddAdvice';
-import { deBounce, numConvert } from '@/utils/utils';
+import { dateFormat, deBounce, numConvert } from '@/utils/utils';
 import { cloneDeep } from 'lodash';
 import styles from './index.module.scss';
 import store from '@/store';
@@ -174,7 +174,7 @@ const Advice = () => {
                 title={
                   <div className={styles.metaLayout}>
                     <p className={styles.title}>{item.nickName}</p>
-                    <Typography.Text className={styles.time} type='secondary'> {item.createTime}</Typography.Text>
+                    <Typography.Text className={styles.time} type='secondary'> {dateFormat(item.createTime)}</Typography.Text>
                   </div>
                 }
               />

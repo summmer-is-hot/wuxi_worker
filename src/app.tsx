@@ -1,7 +1,9 @@
 import { message } from 'antd';
 import { runApp, IAppConfig } from 'ice';
 import Loading from './components/Loading';
+import userService from './services/userService';
 import { codeMessage } from './utils/const';
+import { getCookie } from './utils/utils';
 
 const appConfig: IAppConfig = {
   app: {
@@ -24,7 +26,7 @@ const appConfig: IAppConfig = {
       request: {
         onConfig: (config) => {
           // 发送请求前：可以对 RequestConfig 做一些统一处理
-          config.headers = { a: 1 };
+          config.headers = { Authorization: getCookie('jwtToken') };
           return config;
         },
         onError: (error) => {
@@ -41,7 +43,11 @@ const appConfig: IAppConfig = {
         },
         onError: (error) => {
           // 请求出错：服务端返回错误状态码
-          message.error(codeMessage[error?.response?.status || 400]);
+          if (error?.response?.status === 501 || 401) {
+            message.error(error?.response?.data.message)
+          } else {
+            message.error(codeMessage[error?.response?.status || 400]);
+          }
           // console.log(error?.response?.data);
           // console.log(error.response.status);
           // console.log(error.response.headers);

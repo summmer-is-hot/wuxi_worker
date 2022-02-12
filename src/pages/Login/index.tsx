@@ -7,11 +7,11 @@ import {
 } from '@ant-design/icons';
 import { Button, message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import styles from './index.module.less';
 import Footer from '@/Layouts/Footer';
 import { useHistory } from 'ice';
-import { getQuery } from '@/utils/utils';
+import { getQuery, setCookie } from '@/utils/utils';
 import Forgot from './components/Forgot';
 import { emailReg, passwordReg, sixLengthReg, sixteenLengthReg, tenLengthReg } from '@/utils/reg';
 import userService from '@/services/userService';
@@ -22,6 +22,7 @@ const Login: React.FC = () => {
   const [type, setType] = useState<string>('login');
   const [forgotModal, setForgotModal] = useState(false);
   const [, userDispatchers] = store.useModel('user');
+  const [form] = ProForm.useForm();
   const changeType = (value: any) => {
     setType(value);
   };
@@ -31,10 +32,9 @@ const Login: React.FC = () => {
     console.log('type :>> ', type);
     switch (type) {
       case 'login':
-        console.log('loginvalues :>> ', type, values);
         const loginRes = await userService.login(values);
-        console.log('isLogin :>> ', loginRes);
         if (loginRes) {
+          setCookie('jwtToken', loginRes.result.token)
           message.success('登录成功!');
           if (values.savePassword) {
             localStorage.setItem('userName', values.userName);
@@ -43,8 +43,9 @@ const Login: React.FC = () => {
             localStorage.removeItem('userName');
             localStorage.removeItem('password');
           }
+          console.log('loginRes.data.id :>> ', loginRes.result.data.id);
           const userInfoRes = await userService.getUserInfo();
-          if (userInfoRes.status) {
+          if (userInfoRes) {
             userDispatchers.saveUser({ currentUser: userInfoRes.result });
             // /** 此方法会跳转到 redirect 参数所在的位置 */
             if (!history) return;
@@ -56,7 +57,7 @@ const Login: React.FC = () => {
 
       case 'register':
         console.log('registervalues :>> ', type, values);
-        const registRes = await userService.regist(values);
+        const registRes = await userService.register(values);
         if (registRes) {
           message.success('注册成功!');
           hideModal();
@@ -82,6 +83,7 @@ const Login: React.FC = () => {
       {forgotModal && <Forgot forgotModal={forgotModal} hideModal={hideModal} />}
       <div className={styles.content}>
         <LoginForm
+          form={form}
           logo={<img alt="logo" src="/favicon.png" />}
           title="无锡IT小眷村"
           subTitle={'互联网人员找工作指南'}
@@ -261,15 +263,17 @@ const Login: React.FC = () => {
                     message: '请输入6位验证码!',
                   },
                 ]}
-                onGetCaptcha={async (phone) => {
-                  // const result = await getFakeCaptcha({
-                  //   phone,
-                  // });
-                  const result = null;
-                  if (result === false) {
-                    return;
+                onGetCaptcha={async () => {
+                  const email = form.getFieldValue('email')
+                  if (!email) return;
+                  const param = {
+                    email,
+                    type: 1
                   }
-                  message.success('获取验证码成功!验证码为：1234');
+                  const res = await userService.sendCode(param);
+                  if (res) {
+                    message.success('验证码发送成功');
+                  }
                 }}
               />
             </>

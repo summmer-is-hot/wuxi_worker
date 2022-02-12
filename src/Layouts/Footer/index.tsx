@@ -41,7 +41,7 @@ export default () => {
         },
       ]}
       // copyright="2022 无锡IT小眷村 | 苏ICP备19026706号-2"
-      copyright="2022 无锡IT小眷村 | 暂未备案~~~~"
+      copyright="2022 无锡IT小眷村 | 备案申请中~~~~"
     />
   );
 };

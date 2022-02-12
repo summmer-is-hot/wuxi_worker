@@ -5,16 +5,16 @@ import { request } from 'ice';
 export default {
     // 公司量chart
     async getChartForCoNumber() {
-        return await request.post('/api/about/getChartForCoNumber');
+        return await request.get('/api/about/getChartForCoNumber');
     },
 
     // 评论量chart
     async getChartForCommentNumber() {
-        return await request.post('/api/about/getChartForCommentNumber');
+        return await request.get('/api/about/getChartForCommentNumber');
     },
 
     // 面经量chart
     async getChartForInterviewNumber() {
-        return await request.post('/api/about/getChartForInterviewNumber');
+        return await request.get('/api/about/getChartForInterviewNumber');
     },
 };

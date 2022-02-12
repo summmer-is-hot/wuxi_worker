@@ -1,4 +1,5 @@
 import { headImg } from '@/utils/const';
+import { dateFormat } from '@/utils/utils';
 import { Skeleton, Card, Avatar, Typography } from 'antd';
 import NewParagraph from '../NewParagraph';
 import styles from './index.module.scss';
@@ -16,7 +17,7 @@ const InterviewItem = (props: any) => {
     (
       <>
         <Text ellipsis className={styles.name}>{interviewItem.nickName}</Text>
-        <Text className={styles.time}>{interviewItem.createTime}</Text>
+        <Text className={styles.time}>{dateFormat(interviewItem.createTime, 'YYYY-mm-dd')}</Text>
       </>
     );
 

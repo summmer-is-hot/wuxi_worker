@@ -1,9 +1,11 @@
-import { createElement } from 'react';
+import { createElement, useEffect } from 'react';
 import ProLayout from '@ant-design/pro-layout';
 import { Link } from 'ice';
 import { asideMenuConfig } from './menuConfig';
 import RightContent from '../RightContent';
 import Footer from '../Footer';
+import userService from '@/services/userService';
+import store from '@/store';
 
 
 const loopMenuItem = (menus: any) =>
@@ -15,6 +17,20 @@ const loopMenuItem = (menus: any) =>
 
 export default function BasicLayout({ children, location }) {
   console.log('location :>> ', location);
+  const [, userDispatchers] = store.useModel('user');
+  const getUserInfo = async () => {
+    const userInfoRes = await userService.getUserInfo();
+    if (userInfoRes) {
+      userDispatchers.saveUser({ currentUser: userInfoRes.result });
+    } else {
+      userDispatchers.saveUser({ currentUser: {} });
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+
   return (
     <ProLayout
       fixedHeader

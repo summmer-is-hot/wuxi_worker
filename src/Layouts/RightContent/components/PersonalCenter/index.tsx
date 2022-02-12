@@ -45,7 +45,7 @@ const PersonalCenter = (props: any) => {
 
   return (
     <Modal title="个人中心" visible={personalModal} onCancel={hideModal} footer={null}>
-      <Form {...layout} form={form} name="add-advice" onFinish={onFinish} initialValues={userState.currentUser}>
+      <Form {...layout} form={form} name="personal-center" onFinish={onFinish} initialValues={userState.currentUser}>
         <Form.Item
           name="email"
           label="邮箱"

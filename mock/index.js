@@ -602,32 +602,32 @@ module.exports = {
       },
     ],
   },
-  '/api/account/regist': {
+  '/api/user/register': {
     message: 'success',
     status: 200,
     result: 'success',
   },
-  '/api/account/sendCode': {
+  '/api/email/sendCode': {
     message: 'success',
     status: 200,
     result: 'success',
   },
-  '/api/account/findPassword': {
+  '/api/user/findPassword': {
     message: 'success',
     status: 200,
     result: 'success',
   },
-  '/api/account/updateUserInfo': {
+  '/api/user/updateUserInfo': {
     message: 'success',
     status: 200,
     result: 'success',
   },
-  '/api/account/login': {
+  '/api/user/login': {
     message: 'success',
     status: 200,
     result: 'success',
   },
-  '/api/account/userInfo': {
+  '/api/user/userInfo': {
     message: 'success',
     status: 200,
     result: {

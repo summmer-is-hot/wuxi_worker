@@ -30,6 +30,7 @@ export const codeMessage = {
     410: '请求的资源被永久删除，且不会再得到的。',
     422: '当创建一个对象时，发生一个验证错误。',
     500: '服务器发生错误，请检查服务器。',
+    501: '操作失败，请稍后重试！',
     502: '网关错误。',
     503: '服务不可用，服务器暂时过载或维护。',
     504: '网关超时。',
@@ -37,7 +38,7 @@ export const codeMessage = {
 
 export const scoreArray: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
-export const salaryLevel: any[] = [
+export const salaryLevel: any = [
     {
         name: '高',
         value: 1,
@@ -60,6 +61,11 @@ export const salaryLevel: any[] = [
     },
 ];
 
+export const getSalaryLevel = (val: any) => {
+    const result = salaryLevel.filter(item => item.value == val);
+    return result[0].name;
+}
+
 export const discount: any[] = [
     {
         name: '不打折',
@@ -74,6 +80,11 @@ export const discount: any[] = [
         value: 3,
     },
 ];
+
+export const getDiscount = (val: any) => {
+    const result = discount.filter(item => item.value == val);
+    return result[0].name;
+}
 
 export const socialSecurityLevel: any[] = [
     {
@@ -98,6 +109,11 @@ export const socialSecurityLevel: any[] = [
     },
 ];
 
+export const getSocialSecurityLevel = (val: any) => {
+    const result = socialSecurityLevel.filter(item => item.value == val);
+    return result[0].name;
+}
+
 export const addSocialSecurity: any[] = [
     {
         name: '有',
@@ -108,6 +124,11 @@ export const addSocialSecurity: any[] = [
         value: 0,
     },
 ];
+
+export const getAddSocialSecurity = (val: any) => {
+    const result = addSocialSecurity.filter(item => item.value == val);
+    return result[0].name;
+}
 
 export const providentFundLevel: any[] = [
     {
@@ -132,6 +153,11 @@ export const providentFundLevel: any[] = [
     },
 ];
 
+export const getProvidentFundLevel = (val: any) => {
+    const result = providentFundLevel.filter(item => item.value == val);
+    return result[0].name;
+}
+
 export const addProvidentFund: any[] = [
     {
         name: '有',
@@ -142,6 +168,11 @@ export const addProvidentFund: any[] = [
         value: 0,
     },
 ];
+
+export const getAddProvidentFund = (val: any) => {
+    const result = addProvidentFund.filter(item => item.value == val);
+    return result[0].name;
+}
 
 export const companySize: any[] = [
     {
@@ -165,6 +196,11 @@ export const companySize: any[] = [
         value: 5,
     },
 ];
+
+export const getCompanySize = (val: any) => {
+    const result = companySize.filter(item => item.value == val);
+    return result[0].name;
+}
 
 export const headImg: any = (index: number) => {
     let img: any;

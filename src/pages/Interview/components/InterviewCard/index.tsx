@@ -1,8 +1,10 @@
-import { Avatar, Card, Space, Tooltip, Typography } from 'antd';
+import { Avatar, Card, Space, Tag, Tooltip, Typography } from 'antd';
 import React, { useState } from 'react';
 import {
+  FireOutlined,
   LikeOutlined,
   LoginOutlined,
+  TwitterOutlined,
 } from '@ant-design/icons';
 import styles from './index.module.scss';
 import InterviewDrawer from '../InterviewDrawer';
@@ -14,7 +16,7 @@ import interviewService from '@/services/interviewService';
 
 const { Paragraph } = Typography;
 const IconText = ({ icon, text }) => (
-  <Space style={{ fontSize: '16px' }}>
+  <Space style={{ fontSize: '14px' }}>
     {React.createElement(icon)}
     {text}
   </Space>
@@ -52,13 +54,18 @@ const InterviewCard = (props: any) => {
 
   const actions = showActions
     ? [
+      <Tooltip title="评分">
+        <Tag icon={<FireOutlined />} color={resource.rate > 7 ? 'error' : resource.rate > 5 ? 'warning' : resource.rate > 3 ? 'processing' : resource.rate >= 0 ? 'success' : 'success'}>
+          {resource.rate}
+        </Tag>
+      </Tooltip>,
       <Tooltip title="点赞">
         <div onClick={deBounce(onLikeClick, 200)}>
           <IconText icon={LikeOutlined} text={numConvert(resource.likeNum)} key="list-vertical-like-o" />
         </div>
       </Tooltip>,
       <Tooltip title="访问">
-        <LoginOutlined onClick={toDetail} />
+        <LoginOutlined onClick={toDetail} style={{ fontSize: '14px' }} />
       </Tooltip>,
     ]
     : [];
@@ -83,7 +90,7 @@ const InterviewCard = (props: any) => {
         <div onClick={toDetail}>
           <Card.Meta
             avatar={
-              <Avatar src={companyImg(resource.companyImage || 0)} alt={'aaa'} />
+              <Avatar src={companyImg(resource.companyImage || 0)} alt={'picture'} />
             }
             className={styles.cardMeta}
             title={

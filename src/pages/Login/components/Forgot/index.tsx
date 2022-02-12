@@ -109,14 +109,16 @@ const Forgot = (props: any) => {
             },
           ]}
           onGetCaptcha={async (phone) => {
-            // const result = await getFakeCaptcha({
-            //   phone,
-            // });
-            const result = null;
-            if (result === false) {
-              return;
+            const email = form.getFieldValue('email')
+            if (!email) return;
+            const param = {
+              email,
+              type: 2
             }
-            message.success('获取验证码成功！验证码为：1234');
+            const res = await userService.sendCode(param);
+            if (res) {
+              message.success('验证码发送成功');
+            }
           }}
         />
 

@@ -120,6 +120,7 @@ const Interview = () => {
             <Radio.Group >
               <Radio.Button value="updateTime">时间</Radio.Button>
               <Radio.Button value="rate">评分</Radio.Button>
+              <Radio.Button value="likeNum">点赞量</Radio.Button>
             </Radio.Group>
           </Form.Item>
           <Form.Item

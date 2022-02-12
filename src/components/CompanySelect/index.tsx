@@ -48,7 +48,7 @@ function DebounceSelect<
       labelInValue
       filterOption={false}
       onSearch={debounceFetcher}
-      notFoundContent={fetching ? <Spin size="small" /> : null}
+      notFoundContent={fetching ? <Spin size="small" /> : "暂未搜索到哦~~"}
       {...props}
       options={options}
     />

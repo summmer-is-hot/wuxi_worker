@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 import PersonalCenter from './components/PersonalCenter';
 import { headImg } from '@/utils/const';
 import { IUser } from '@/interfaces/user';
+import { setCookie } from '@/utils/utils';
 
 
 export type GlobalHeaderRightProps = {
@@ -32,6 +33,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const onLogOutClick = () => {
     const usr = {} as IUser;
     userDispatchers.saveUser({ currentUser: usr });
+    setCookie('jwtToken', "");
     message.success('您已退出登录');
   };
 

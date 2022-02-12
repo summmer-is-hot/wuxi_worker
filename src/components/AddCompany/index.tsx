@@ -1,4 +1,5 @@
 import companyService from '@/services/companyService';
+import store from '@/store';
 import { companySize } from '@/utils/const';
 import { deBounce } from '@/utils/utils';
 import { Form, Input, Button, Modal, Select, message } from 'antd';
@@ -15,12 +16,17 @@ const tailLayout = {
 };
 
 const AddCompany = (props: any) => {
+  const [userState, userStateDispatchers] = store.useModel('user')
   const { addCompanyModal, hideModal } = props;
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
     console.log(values);
-    const res = await companyService.addCompany(values);
+    const param = {
+      ...values,
+      userId: userState.currentUser.userId
+    }
+    const res = await companyService.addCompany(param);
     if (res) {
       message.success('添加成功！');
       form.resetFields();

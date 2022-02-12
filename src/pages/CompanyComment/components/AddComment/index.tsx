@@ -4,6 +4,7 @@ import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
 import commentService from '@/services/commentService';
 import { deBounce } from '@/utils/utils';
+import store from '@/store';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -17,12 +18,17 @@ const tailLayout = {
 };
 
 const AddComment = (props: any) => {
+  const [userState, userStateDispatchers] = store.useModel('user')
   const { hideModal } = props;
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
     console.log(values);
-    const res = await commentService.addComment(values);
+    const param = {
+      ...values,
+      userId: userState.currentUser.userId
+    }
+    const res = await commentService.addComment(param);
     if (res) {
       message.success('添加成功！');
       form.resetFields();

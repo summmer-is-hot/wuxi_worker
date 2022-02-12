@@ -60,7 +60,7 @@ const CompanyComment = () => {
       render: (_, record) => (
         <Space>
           <Tag
-            color={record.score > 6 ? 'success' : record.score > 3 ? 'processing' : record.score > 0 ? 'warning' : record.score <= 0 ? 'error' : ''}
+            color={record.score > 6 ? 'success' : record.score > 3 ? 'warning' : record.score > 0 ? 'error' : 'error'}
           >
             {record.score}
           </Tag >
