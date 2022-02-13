@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 import commentService from '@/services/commentService';
 import { deBounce } from '@/utils/utils';
 import store from '@/store';
+import { useEffect } from 'react';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -19,8 +20,13 @@ const tailLayout = {
 
 const AddComment = (props: any) => {
   const [userState, userStateDispatchers] = store.useModel('user')
-  const { hideModal } = props;
+  const { hideModal, company } = props;
+  const initialValues = { companyId: company?.id }
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    onReset();
+  }, [company])
 
   const onFinish = async (values: any) => {
     console.log(values);
@@ -46,10 +52,21 @@ const AddComment = (props: any) => {
   };
 
   return (
-    <Form {...layout} form={form} name="newComment" onFinish={deBounce(onFinish, 500)}>
-      <Form.Item name="companyId" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
-        <CompanySelect getCompanyId={getCompanyId} />
-      </Form.Item>
+    <Form {...layout} form={form} name="newComment" onFinish={deBounce(onFinish, 500)} initialValues={initialValues}>
+      {
+        !company &&
+        <Form.Item name="companyId" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
+          <CompanySelect getCompanyId={getCompanyId} />
+        </Form.Item>
+      }
+      {
+        company &&
+        <Form.Item name="companyId" label="公司名称" rules={[{ required: true, message: '请选择公司名称' }]}>
+          <Select disabled>
+            <Option value={company.id} >{company.name}</Option>
+          </Select>
+        </Form.Item>
+      }
       <Form.Item name="salaryLevel" label="工资水平" rules={[{ required: true, message: '请选择您认为的该公司工资水平' }]}>
         <Select
           placeholder="请选择您认为的该公司工资水平"

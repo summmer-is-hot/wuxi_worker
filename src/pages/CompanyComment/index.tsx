@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Tag, Space, Modal } from 'antd';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -72,15 +72,22 @@ const CompanyComment = () => {
       width: 200,
       valueType: 'option',
       render: (text, record, _, action) => [
-        <a key={record.id} type="primary" onClick={() => showDetailModal(record.id)}>
+        <a
+          key={record.id}
+          onClick={() => showDetailModal(record.id)}>
           详情
         </a>,
         <a
-          type="primary"
           key={record.id}
-          onClick={() => { action?.startEditable?.(record.id); }}
+          onClick={() => { action?.startEditable?.(record.id) }}
         >
           编辑
+        </a>,
+        <a
+          key={record.id}
+          onClick={() => showAddCommentModal(record)}
+        >
+          点评
         </a>,
       ],
     },
@@ -89,6 +96,7 @@ const CompanyComment = () => {
   const [detailVisible, setDetailVisible] = useState(false);
   const [addCommentVisible, setAddCommentVisible] = useState(false);
   const [commentId, setCommentId] = useState<number>(0);
+  const [company, setCompany] = useState<any>(null);
 
 
   const showDetailModal = (id: number) => {
@@ -105,7 +113,8 @@ const CompanyComment = () => {
     setDetailVisible(false);
   };
 
-  const showAddCommentModal = () => {
+  const showAddCommentModal = (record?: any) => {
+    setCompany(record);
     setAddCommentVisible(true);
   };
 
@@ -114,6 +123,7 @@ const CompanyComment = () => {
   };
 
   const handleAddCommentCancel = () => {
+    setCompany(null);
     setAddCommentVisible(false);
   };
 
@@ -173,7 +183,7 @@ const CompanyComment = () => {
         dateFormatter="string"
         headerTitle="网友点评"
         toolBarRender={() => [
-          <Button key="button" icon={<PlusOutlined />} type="primary" onClick={showAddCommentModal}>
+          <Button key="button" icon={<PlusOutlined />} type="primary" onClick={() => showAddCommentModal(null)}>
             添加
           </Button>,
         ]}
@@ -182,7 +192,7 @@ const CompanyComment = () => {
         <CommentDetail commentId={commentId} />
       </Modal>
       <Modal footer={null} title="添加评论" visible={addCommentVisible} onOk={handleAddCommentOk} onCancel={handleAddCommentCancel}>
-        <AddComment hideModal={handleAddCommentOk} />
+        <AddComment hideModal={handleAddCommentOk} company={company} />
       </Modal>
     </>
   );

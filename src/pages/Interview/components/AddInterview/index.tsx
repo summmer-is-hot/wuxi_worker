@@ -1,5 +1,5 @@
 import interviewService from '@/services/interviewService';
-import { Form, Input, Button, Modal, message } from 'antd';
+import { Form, Input, Button, Modal, message, Select } from 'antd';
 import CompanySelect from '@/components/CompanySelect';
 import styles from './index.module.scss';
 import store from '@/store';
@@ -14,8 +14,11 @@ const tailLayout = {
 
 const AddInterview = (props: any) => {
   const [userState, userStateDispatchers] = store.useModel('user');
-  const { addInterviewModal, hideModal } = props;
+  const { addInterviewModal, hideModal, company } = props;
   const [form] = Form.useForm();
+  const initialValues = { id: company?.id }
+
+  console.log('company :>> ', company);
 
   const onFinish = async (values: any) => {
     console.log(values);
@@ -40,19 +43,39 @@ const AddInterview = (props: any) => {
 
   return (
     <Modal title="添加面经" visible={addInterviewModal} onCancel={hideModal} footer={null}>
-      <Form {...layout} form={form} name="add-interview" onFinish={onFinish}>
-        <Form.Item
-          name="id"
-          label="公司名称"
-          rules={[
-            {
-              required: true,
-              message: '请选择公司名称!'
-            }
-          ]}
-        >
-          <CompanySelect getCompanyId={getCompanyId} />
-        </Form.Item>
+      <Form {...layout} form={form} name="add-interview" onFinish={onFinish} initialValues={initialValues}>
+        {
+          !company &&
+          <Form.Item
+            name="id"
+            label="公司名称"
+            rules={[
+              {
+                required: true,
+                message: '请选择公司名称!'
+              }
+            ]}
+          >
+            <CompanySelect getCompanyId={getCompanyId} />
+          </Form.Item>
+        }
+        {
+          company &&
+          <Form.Item
+            name="id"
+            label="公司名称"
+            rules={[
+              {
+                required: true,
+                message: '请选择公司名称!'
+              }
+            ]}
+          >
+            <Select disabled>
+              <Select.Option value={company.id} >{company.companyName}</Select.Option>
+            </Select>
+          </Form.Item>
+        }
         <Form.Item
           name="interview"
           label="面试经验"

@@ -39,17 +39,17 @@ const AddCompany = (props: any) => {
       <Form {...layout} form={form} name="add-company" onFinish={deBounce(onFinish, 500)}>
         <Form.Item
           name="name"
-          label="公司名称"
+          label="公司全称"
           rules={
             [
               {
                 required: true,
-                message: '请填写公司名称!',
+                message: '请填写公司全称!',
               },
             ]
           }
         >
-          <Input placeholder="请填写公司名称（30字内）" maxLength={30} />
+          <Input placeholder="请填写公司全称（30字内）" maxLength={30} />
         </Form.Item>
         <Form.Item
           name="microName"

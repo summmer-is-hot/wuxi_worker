@@ -1,13 +1,16 @@
 import { IInterviewItem } from '@/interfaces/interview';
 import interviewService from '@/services/interviewService';
 import store from '@/store';
+import { PlusOutlined } from '@ant-design/icons';
 import { Drawer, Button, List } from 'antd';
 import { useEffect, useState } from 'react';
+import AddInterview from '../AddInterview';
 import InterviewItem from '../InterviewItem';
 import styles from './index.module.scss';
 
 const InterviewDrawer = (props: any) => {
   const { resource, drawerVisible, closeDrawer } = props;
+  const [addInterviewModal, setAddInterviewModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [page, setPage] = useState<number>(1);
@@ -45,6 +48,15 @@ const InterviewDrawer = (props: any) => {
     setLoading(true);
     getInterviewItemListById();
   };
+
+  const addInterviewClick = () => {
+    setAddInterviewModal(true);
+  };
+
+  const hideModal = () => {
+    setAddInterviewModal(false);
+  };
+
   const loadMore =
     hasNextPage ? (
       <div className={styles.loadMore}>
@@ -59,12 +71,18 @@ const InterviewDrawer = (props: any) => {
 
   return (
     <>
+      <AddInterview addInterviewModal={addInterviewModal} hideModal={hideModal} company={resource} />
       <Drawer
         title={resource.companyName}
-        width={'auto'}
+        width={'550'}
         // closable={false}
         onClose={closeDrawer}
         visible={drawerVisible}
+        extra={
+          <Button type="primary" icon={<PlusOutlined />} onClick={addInterviewClick}>
+            {'写面经'}
+          </Button>
+        }
       >
         <List<IInterviewItem>
           itemLayout="vertical"
