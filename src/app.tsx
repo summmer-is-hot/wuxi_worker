@@ -1,13 +1,19 @@
 import { message } from 'antd';
 import { runApp, IAppConfig } from 'ice';
 import Loading from './components/Loading';
-import userService from './services/userService';
+import chartService from './services/chartService';
 import { codeMessage } from './utils/const';
 import { getCookie } from './utils/utils';
 
 const appConfig: IAppConfig = {
   app: {
     rootId: 'ice-container',
+    getInitialData: async (ctx) => {
+      const res = await chartService.about();
+      if (res) {
+        console.log('success :>> ', 'success');
+      }
+    }
   },
   router: {
     type: 'browser',
@@ -26,7 +32,10 @@ const appConfig: IAppConfig = {
       request: {
         onConfig: (config) => {
           // 发送请求前：可以对 RequestConfig 做一些统一处理
-          config.headers = { Authorization: getCookie('jwtToken') };
+          config.headers = {
+            Authorization: getCookie('jwtToken'),
+            'x-csrf-token': getCookie('csrfToken')
+          };
           return config;
         },
         onError: (error) => {

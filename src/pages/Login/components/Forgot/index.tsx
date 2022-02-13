@@ -108,9 +108,12 @@ const Forgot = (props: any) => {
               message: '请输入6位验证码!',
             },
           ]}
-          onGetCaptcha={async (phone) => {
+          onGetCaptcha={async () => {
             const email = form.getFieldValue('email')
-            if (!email) return;
+            if (!email || !emailReg.test(email)) {
+              message.error('邮箱未填写或邮箱格式不正确！！');
+              await Promise.reject()
+            }
             const param = {
               email,
               type: 2

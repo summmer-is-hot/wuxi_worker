@@ -17,4 +17,8 @@ export default {
     async getChartForInterviewNumber() {
         return await request.get('/api/about/getChartForInterviewNumber');
     },
+
+    async about() {
+        return await request.get('/api/about/about');
+    },
 };

@@ -265,6 +265,10 @@ const Login: React.FC = () => {
                 ]}
                 onGetCaptcha={async () => {
                   const email = form.getFieldValue('email')
+                  if (!email || !emailReg.test(email)) {
+                    message.error('邮箱未填写或邮箱格式不正确！！');
+                    await Promise.reject()
+                  }
                   if (!email) return;
                   const param = {
                     email,
