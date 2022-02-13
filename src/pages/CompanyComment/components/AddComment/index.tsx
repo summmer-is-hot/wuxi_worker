@@ -19,7 +19,7 @@ const tailLayout = {
 };
 
 const AddComment = (props: any) => {
-  const [userState, userStateDispatchers] = store.useModel('user')
+  const [userState] = store.useModel('user')
   const { hideModal, company } = props;
   const initialValues = { companyId: company?.id }
   const [form] = Form.useForm();

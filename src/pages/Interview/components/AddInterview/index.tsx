@@ -13,7 +13,7 @@ const tailLayout = {
 };
 
 const AddInterview = (props: any) => {
-  const [userState, userStateDispatchers] = store.useModel('user');
+  const [userState] = store.useModel('user');
   const { addInterviewModal, hideModal, company } = props;
   const [form] = Form.useForm();
   const initialValues = { id: company?.id }
