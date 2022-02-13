@@ -16,7 +16,7 @@ const tailLayout = {
 };
 
 const AddCompany = (props: any) => {
-  const [userState, userStateDispatchers] = store.useModel('user')
+  const [userState] = store.useModel('user')
   const { addCompanyModal, hideModal } = props;
   const [form] = Form.useForm();
 
