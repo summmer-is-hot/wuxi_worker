@@ -56,7 +56,7 @@ const appConfig: IAppConfig = {
             message.error(error?.response?.data.message)
             if (error?.response?.status === 401) {
               setCookie('jwtToken', '');
-              window.location.href = `${location.origin}/login`;
+              window.location.href = `${window.location.origin}/login`;
             }
           } else {
             message.error(codeMessage[error?.response?.status || 400]);
