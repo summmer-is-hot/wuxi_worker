@@ -3,7 +3,7 @@ import { runApp, IAppConfig } from 'ice';
 import Loading from './components/Loading';
 import chartService from './services/chartService';
 import { codeMessage } from './utils/const';
-import { getCookie } from './utils/utils';
+import { getCookie, setCookie } from './utils/utils';
 
 const appConfig: IAppConfig = {
   app: {
@@ -54,6 +54,10 @@ const appConfig: IAppConfig = {
           // 请求出错：服务端返回错误状态码
           if (error?.response?.status === 501 || 401) {
             message.error(error?.response?.data.message)
+            if (error?.response?.status === 401) {
+              setCookie('jwtToken', '');
+              window.location.href = `/login`;
+            }
           } else {
             message.error(codeMessage[error?.response?.status || 400]);
           }

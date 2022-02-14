@@ -138,6 +138,7 @@ const CompanyComment = () => {
             name: params.name || '',
             page: params.current,
             pageSize: params.pageSize,
+            sort: sort.score || ''
           });
           return {
             data: res.result.data,

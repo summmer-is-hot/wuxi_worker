@@ -5,8 +5,8 @@ import { request } from 'ice';
 export default {
     // 评论列表
     async getCoCommentList(param: any) {
-        const { page, pageSize, name } = param;
-        return await request.get(`/api/comment/getCoCommentList?page=${page}&pageSize=${pageSize}&name=${name}`);
+        const { page, pageSize, name, sort } = param;
+        return await request.get(`/api/comment/getCoCommentList?page=${page}&pageSize=${pageSize}&name=${name}&sort=${sort}`);
     },
 
     async getCommentById(param: any) {

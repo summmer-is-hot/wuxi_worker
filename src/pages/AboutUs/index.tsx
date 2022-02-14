@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 const { Text, Link } = Typography;
 
 const AboutUs = () => {
+
   return (
     <div className={styles.container}>
       <Row gutter={16}>

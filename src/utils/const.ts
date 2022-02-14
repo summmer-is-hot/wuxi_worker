@@ -132,7 +132,7 @@ export const getAddSocialSecurity = (val: any) => {
 
 export const providentFundLevel: any[] = [
     {
-        name: '工资12%以上',
+        name: '工资12%及以上',
         value: 1,
     },
     {
