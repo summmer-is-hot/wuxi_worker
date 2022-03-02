@@ -85,7 +85,7 @@ const Login: React.FC = () => {
         <LoginForm
           form={form}
           logo={<img alt="logo" src="/favicon.png" />}
-          title="无锡IT小眷村"
+          title="编程日记"
           subTitle={'互联网人员找工作指南'}
           initialValues={{
             userName: localStorage.getItem('userName'),

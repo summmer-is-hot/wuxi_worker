@@ -36,7 +36,7 @@ export default function BasicLayout({ children, location }) {
       fixedHeader
       fixSiderbar
       logo={<img alt="logo" src="/favicon.png" />}
-      title="无锡IT小眷村"
+      title="编程日记"
       style={{
         minHeight: '100vh',
       }}
