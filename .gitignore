@@ -19,6 +19,7 @@ lib/
 .vscode
 *.yml
 *.tar.gz
+.vscode
 build.json
 
 npm-debug.log*
