@@ -40,8 +40,8 @@ export default () => {
           href: '#!',
         },
       ]}
-      // copyright="2022 编程日记 | 苏ICP备19026706号-2"
-      copyright="2022 编程日记 | 备案申请中~~~~"
+      copyright="2022 编程日记 | 苏ICP备2022008034号"
+      // copyright="2022 编程日记 | 备案申请中~~~~"
     />
   );
 };
