@@ -35,7 +35,7 @@ const routerConfig: IRouterConfig[] = [
       },
       {
         path: '/',
-        redirect: '/aboutUs',
+        redirect: '/companyComment',
       },
       {
         component: NotFound,

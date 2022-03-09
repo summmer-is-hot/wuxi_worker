@@ -2,12 +2,6 @@ import { MessageOutlined, LikeOutlined, SmileOutlined, CoffeeOutlined } from '@a
 
 const asideMenuConfig = [
   {
-    name: '关于我们',
-    path: '/aboutUs',
-    icon: SmileOutlined,
-    breadcrumbName: '关于我们',
-  },
-  {
     name: '公司点评',
     path: '/companyComment',
     icon: LikeOutlined,
@@ -24,6 +18,12 @@ const asideMenuConfig = [
     path: '/advice',
     icon: CoffeeOutlined,
     breadcrumbName: '意见与建议',
+  },
+  {
+    name: '关于我们',
+    path: '/aboutUs',
+    icon: SmileOutlined,
+    breadcrumbName: '关于我们',
   },
 ];
 
