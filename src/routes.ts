@@ -7,6 +7,7 @@ const CompanyComment = lazy(() => import('@/pages/CompanyComment'));
 const Interview = lazy(() => import('@/pages/Interview'));
 const Advice = lazy(() => import('@/pages/Advice'));
 const NotFound = lazy(() => import('@/components/NotFound'));
+const Study = lazy(() => import('@/pages/Study'));
 
 const routerConfig: IRouterConfig[] = [
   {
@@ -30,8 +31,12 @@ const routerConfig: IRouterConfig[] = [
         component: Advice,
       },
       {
-        path: '/AboutUs',
+        path: '/aboutUs',
         component: AboutUs,
+      },
+      {
+        path: '/study',
+        component: Study,
       },
       {
         path: '/',

@@ -1,4 +1,4 @@
-import { MessageOutlined, LikeOutlined, SmileOutlined, CoffeeOutlined } from '@ant-design/icons';
+import { MessageOutlined, LikeOutlined, SmileOutlined, CoffeeOutlined, FileTextOutlined } from '@ant-design/icons';
 
 const asideMenuConfig = [
   {
@@ -18,6 +18,12 @@ const asideMenuConfig = [
     path: '/advice',
     icon: CoffeeOutlined,
     breadcrumbName: '意见与建议',
+  },
+  {
+    name: '学习资料',
+    path: '/study',
+    icon: FileTextOutlined,
+    breadcrumbName: '关于我们',
   },
   {
     name: '关于我们',

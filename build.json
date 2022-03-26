@@ -13,6 +13,8 @@
     "react-dom": "ReactDOM",
     "@ant-design/charts": "charts"
   },
+  "hash": true,
+  "dropLogLevel": "error",
   "proxy": {
     "/api": {
       "enable": true,
